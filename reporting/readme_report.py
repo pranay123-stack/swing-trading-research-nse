@@ -10,6 +10,59 @@ from pathlib import Path
 from config import PATHS, STRATEGY
 
 START, END = "<!-- REPORT:START -->", "<!-- REPORT:END -->"
+FSTART, FEND = "<!-- FILES:START -->", "<!-- FILES:END -->"
+REPO = "https://github.com/pranay123-stack/swing-trading-research-nse"
+
+DESCRIPTIONS = [
+    ("Swing_Trading_Research_", "**The research report (PDF)** — executive summary, methodology, backtest evidence, market regime, sector "
+                                "analysis, each trade idea with its chart, thesis, levels, event risk and score card, limitations, data sources."),
+    ("trade_ideas_", "**Trade ideas (CSV)** — one row per idea: symbol, side, setup, CMP, entry, stop, T1, T2, risk/reward, ATR, "
+                     "position size, capital at risk, score, holding period, event summary."),
+    ("research_context.json", "**Full research context (JSON)** — everything the PDF is built from: regime components, sector table, universe "
+                              "and liquidity exclusions, top 25 screened setups with reject reasons, ideas with score cards and indicators."),
+    ("backtest_summary.json", "**Backtest summary (JSON)** — period, signal counts, fill rate, isolated / walk-forward / portfolio metrics, "
+                              "before-vs-after-cost table, results by setup, side and regime, every walk-forward fold, assumptions."),
+    ("backtest_signals.csv", "**Every historical setup (CSV)** — each setup the screener found on each past session, with its score, regime and levels."),
+    ("backtest_isolated_trades.csv", "**Isolated-signal trades (CSV)** — every regime-compatible signal traded on its own through the fill model: "
+                                     "entry/exit dates, exit reason, gross, costs, net, R multiple."),
+    ("backtest_portfolio_trades.csv", "**Out-of-sample portfolio trades (CSV)** — trades taken by the capital-constrained walk-forward paper portfolio."),
+    ("backtest_equity_oos.csv", "**Out-of-sample equity curve (CSV)** — daily paper equity, daily return and drawdown of the walk-forward portfolio."),
+    ("backtest_equity_fixed60.csv", "**Full-period equity curve (CSV)** — same portfolio over the whole period with the fixed score threshold 60."),
+    ("backtest_equity.png", "**Equity curve chart (PNG)** — the out-of-sample paper portfolio's equity."),
+]
+
+
+def _describe(name: str) -> str:
+    for prefix, d in DESCRIPTIONS:
+        if name.startswith(prefix):
+            return d
+    if name.endswith(".png"):
+        parts = name[:-4].split("_")
+        if len(parts) >= 3:
+            return f"**Daily candlestick chart (PNG)** — {parts[0]} {parts[1].lower()} idea, data as of {parts[2]}: candles, EMA20/50, SMA200, " \
+                   "volume, RSI 14, support/resistance, entry, stop, T1, T2."
+    return ""
+
+
+def _size(p: Path) -> str:
+    n = p.stat().st_size
+    return f"{n / 1e6:.1f} MB" if n >= 1e6 else f"{n / 1e3:.0f} KB"
+
+
+def files_markdown() -> str:
+    L = []
+    for folder, title in ((PATHS.reports, "reports/"), (PATHS.charts, "charts/")):
+        files = sorted(p for p in folder.glob("*") if p.is_file() and not p.name.startswith("."))
+        if not files:
+            continue
+        L.append(f"**`{title}`**\n")
+        for p in files:
+            rel = p.relative_to(PATHS.root).as_posix()
+            L.append(f"- [`{p.name}`]({rel}) ({_size(p)}) — {_describe(p.name)}  \n"
+                     f"  [View]({REPO}/blob/main/{rel}) · [Download]({REPO}/raw/main/{rel})")
+        L.append("")
+    L.append(f"Download everything at once: [repository ZIP]({REPO}/archive/refs/heads/main.zip).")
+    return "\n".join(L)
 
 
 def _f(x, nd=2):
@@ -152,6 +205,8 @@ def update_readme(readme: Path = PATHS.root / "README.md") -> bool:
     if START not in text:
         return False
     new = re.sub(re.escape(START) + r".*?" + re.escape(END), lambda m: f"{START}\n{report_markdown(ctx, bt)}\n{END}", text, flags=re.S)
+    if FSTART in new:
+        new = re.sub(re.escape(FSTART) + r".*?" + re.escape(FEND), lambda m: f"{FSTART}\n{files_markdown()}\n{FEND}", new, flags=re.S)
     readme.write_text(new)
     return True
 

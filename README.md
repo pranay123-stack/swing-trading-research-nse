@@ -19,14 +19,15 @@ current analysis, dated daily charts, clear entry / stop / targets / risk-reward
 2. [What you need before running](#what-you-need-before-running)
 3. [How to run — `run_research.py`](#how-to-run--run_researchpy)
 4. [How to run — `app.py` (dashboard)](#how-to-run--apppy-dashboard)
-5. [The PDF report — what it contains](#the-pdf-report--what-it-contains)
-6. [Latest report (full contents)](#latest-report-full-contents)
-7. [Method](#method)
-8. [Paper execution and safety](#paper-execution-and-safety)
-9. [Backtesting and what it found](#backtesting-and-what-it-found)
-10. [Project structure](#project-structure)
-11. [Tests](#tests)
-12. [Limitations](#limitations)
+5. [Reports — all files and downloads](#reports--all-files-and-downloads)
+6. [The PDF report — what it contains](#the-pdf-report--what-it-contains)
+7. [Latest report (full contents)](#latest-report-full-contents)
+8. [Method](#method)
+9. [Paper execution and safety](#paper-execution-and-safety)
+10. [Backtesting and what it found](#backtesting-and-what-it-found)
+11. [Project structure](#project-structure)
+12. [Tests](#tests)
+13. [Limitations](#limitations)
 
 ---
 
@@ -197,6 +198,47 @@ Columns of the backtest CSVs:
 | **F. Data health** | last successful API call, candle coverage and freshness, missing candles / validation per symbol, API error log |
 
 Run `run_research.py` first — the dashboard shows "No research run yet" until it has.
+
+---
+
+## Reports — all files and downloads
+
+Every file `run_research.py` writes to `reports/` and `charts/`, with what it contains. **View** opens it on GitHub; **Download**
+saves the file directly. This list is regenerated on every run.
+
+<!-- FILES:START -->
+**`reports/`**
+
+- [`Swing_Trading_Research_2026-11-23.pdf`](reports/Swing_Trading_Research_2026-11-23.pdf) (595 KB) — **The research report (PDF)** — executive summary, methodology, backtest evidence, market regime, sector analysis, each trade idea with its chart, thesis, levels, event risk and score card, limitations, data sources.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/Swing_Trading_Research_2026-11-23.pdf) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/Swing_Trading_Research_2026-11-23.pdf)
+- [`backtest_equity.png`](reports/backtest_equity.png) (75 KB) — **Equity curve chart (PNG)** — the out-of-sample paper portfolio's equity.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/backtest_equity.png) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/backtest_equity.png)
+- [`backtest_equity_fixed60.csv`](reports/backtest_equity_fixed60.csv) (28 KB) — **Full-period equity curve (CSV)** — same portfolio over the whole period with the fixed score threshold 60.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/backtest_equity_fixed60.csv) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/backtest_equity_fixed60.csv)
+- [`backtest_equity_oos.csv`](reports/backtest_equity_oos.csv) (18 KB) — **Out-of-sample equity curve (CSV)** — daily paper equity, daily return and drawdown of the walk-forward portfolio.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/backtest_equity_oos.csv) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/backtest_equity_oos.csv)
+- [`backtest_isolated_trades.csv`](reports/backtest_isolated_trades.csv) (833 KB) — **Isolated-signal trades (CSV)** — every regime-compatible signal traded on its own through the fill model: entry/exit dates, exit reason, gross, costs, net, R multiple.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/backtest_isolated_trades.csv) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/backtest_isolated_trades.csv)
+- [`backtest_portfolio_trades.csv`](reports/backtest_portfolio_trades.csv) (52 KB) — **Out-of-sample portfolio trades (CSV)** — trades taken by the capital-constrained walk-forward paper portfolio.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/backtest_portfolio_trades.csv) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/backtest_portfolio_trades.csv)
+- [`backtest_signals.csv`](reports/backtest_signals.csv) (808 KB) — **Every historical setup (CSV)** — each setup the screener found on each past session, with its score, regime and levels.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/backtest_signals.csv) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/backtest_signals.csv)
+- [`backtest_summary.json`](reports/backtest_summary.json) (11 KB) — **Backtest summary (JSON)** — period, signal counts, fill rate, isolated / walk-forward / portfolio metrics, before-vs-after-cost table, results by setup, side and regime, every walk-forward fold, assumptions.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/backtest_summary.json) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/backtest_summary.json)
+- [`research_context.json`](reports/research_context.json) (57 KB) — **Full research context (JSON)** — everything the PDF is built from: regime components, sector table, universe and liquidity exclusions, top 25 screened setups with reject reasons, ideas with score cards and indicators.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/research_context.json) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/research_context.json)
+- [`trade_ideas_2026-11-23.csv`](reports/trade_ideas_2026-11-23.csv) (1 KB) — **Trade ideas (CSV)** — one row per idea: symbol, side, setup, CMP, entry, stop, T1, T2, risk/reward, ATR, position size, capital at risk, score, holding period, event summary.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/trade_ideas_2026-11-23.csv) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/trade_ideas_2026-11-23.csv)
+
+**`charts/`**
+
+- [`HCLTECH_LONG_2026-11-23.png`](charts/HCLTECH_LONG_2026-11-23.png) (222 KB) — **Daily candlestick chart (PNG)** — HCLTECH long idea, data as of 2026-11-23: candles, EMA20/50, SMA200, volume, RSI 14, support/resistance, entry, stop, T1, T2.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/charts/HCLTECH_LONG_2026-11-23.png) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/charts/HCLTECH_LONG_2026-11-23.png)
+- [`TITAN_LONG_2026-11-23.png`](charts/TITAN_LONG_2026-11-23.png) (234 KB) — **Daily candlestick chart (PNG)** — TITAN long idea, data as of 2026-11-23: candles, EMA20/50, SMA200, volume, RSI 14, support/resistance, entry, stop, T1, T2.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/charts/TITAN_LONG_2026-11-23.png) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/charts/TITAN_LONG_2026-11-23.png)
+
+Download everything at once: [repository ZIP](https://github.com/pranay123-stack/swing-trading-research-nse/archive/refs/heads/main.zip).
+<!-- FILES:END -->
 
 ---
 
