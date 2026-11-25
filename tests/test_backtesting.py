@@ -109,3 +109,13 @@ def test_metrics_hand_check():
     eq = pd.Series([100.0, 110, 99, 120], index=pd.date_range("2026-01-01", periods=4))
     e = equity_metrics(eq, 100)
     assert e["total_return_pct"] == pytest.approx(20) and e["max_drawdown_pct"] == pytest.approx(-10)
+
+
+def test_equity_csv_has_named_columns(tmp_path):
+    from backtesting.report import equity_frame
+    eq = pd.Series([100.0, 110, 99], index=pd.date_range("2026-01-01", periods=3))
+    p = tmp_path / "e.csv"
+    equity_frame(eq).to_csv(p)
+    assert p.read_text().splitlines()[0] == "date,equity_inr,daily_return_pct,drawdown_pct"
+    back = pd.read_csv(p)
+    assert back["drawdown_pct"].iloc[-1] == pytest.approx(-10.0)

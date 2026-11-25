@@ -165,6 +165,16 @@ Outputs:
 | `database/swing_research.sqlite` | candles, API log, runs, screen results, ideas, paper orders/fills/positions |
 | `logs/research.log` | run log |
 
+Columns of the backtest CSVs:
+
+| File | Columns |
+|---|---|
+| `backtest_signals.csv` | `d` signal date · `symbol` · `side` · `setup` · `score` (0–100) · `regime` · `regime_ok` (setup allowed in that regime) · `entry` · `stop` · `t1` · `t2` · `atr` · `rr_t2` · `sector` · `fno` (has stock futures) |
+| `backtest_isolated_trades.csv`, `backtest_portfolio_trades.csv` | `signal_d` · `symbol` · `side` · `setup` · `score` · `regime` · `state` (CLOSED / OPEN / EXPIRED / CANCELLED) · `entry_d` · `exit_d` · `exit_reason` (STOP, STOP_GAP, T2, T2_GAP, BREAKEVEN, BREAKEVEN_GAP, TIME) · `entry_price` · `qty` · `gross` (₹ before costs) · `costs` (₹) · `net` (₹ after costs) · `risk` (₹ at the initial stop) · `r` (net ÷ risk) · `bars_held` (sessions) · `notional` (₹) |
+| `backtest_equity_oos.csv`, `backtest_equity_fixed60.csv` | `date` · `equity_inr` (daily mark-to-market paper equity, ₹10 lakh start) · `daily_return_pct` · `drawdown_pct` (from the running peak) |
+
+`_oos` = walk-forward out-of-sample portfolio (per-fold score thresholds); `_fixed60` = whole period with the default threshold 60.
+
 **Best time to run:** after 15:45 IST on a trading day, so the day's completed session is included.
 
 ---
@@ -544,7 +554,7 @@ execution/                 transaction_costs, position_manager (fill model), pap
 backtesting/               engine, walk_forward, performance, report
 reporting/                 chart_generator, pdf_report, export, readme_report
 database/                  SQLite schema and repository
-tests/                     158 tests + fixtures/ (recorded real Kotak responses, real candle snapshots)
+tests/                     160 tests + fixtures/ (recorded real Kotak responses, real candle snapshots)
 reports/  charts/          generated outputs
 ```
 
@@ -556,7 +566,7 @@ reports/  charts/          generated outputs
 .venv/bin/python -m pytest
 ```
 
-158 tests, fully offline. Fixtures are **real data**: Kotak API responses recorded on 2026-11-25 (stock and index history, a real
+160 tests, fully offline. Fixtures are **real data**: Kotak API responses recorded on 2026-11-25 (stock and index history, a real
 HTTP 429, a real 422, quotes, scrip paths — tokens redacted), daily candles for 10 stocks and 10 indices exported from the Kotak sync,
 and real scrip-master rows. Regenerate with `python tests/fixtures/make_fixtures.py [--record]`.
 

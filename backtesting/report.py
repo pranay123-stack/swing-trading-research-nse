@@ -16,6 +16,15 @@ WARMUP = 215  # sessions: SMA200 + pivot confirmation
 TAIL = 20  # signals in the last 20 sessions cannot have a complete outcome yet
 
 
+def equity_frame(equity: pd.Series) -> pd.DataFrame:
+    """Daily mark-to-market equity with named columns: equity_inr, daily_return_pct, drawdown_pct."""
+    df = pd.DataFrame({"equity_inr": equity.round(2)})
+    df["daily_return_pct"] = (equity.pct_change() * 100).round(4)
+    df["drawdown_pct"] = ((equity / equity.cummax() - 1) * 100).round(4)
+    df.index.name = "date"
+    return df
+
+
 def cost_decomposition(trades: pd.DataFrame) -> list[dict]:
     """Mean R per trade before costs, the cost drag in R, and net R; overall and by side."""
     t = trades[(trades["state"] == "CLOSED") & (trades["entry_price"] > 0)].copy() if len(trades) else trades
@@ -96,7 +105,7 @@ def run_backtest(rd, verbose: bool = False) -> dict:
     }
     json_dump(out, PATHS.reports / "backtest_summary.json")
     if fixed is not None:
-        fixed.equity.to_csv(PATHS.reports / "backtest_equity_fixed60.csv")
+        equity_frame(fixed.equity).to_csv(PATHS.reports / "backtest_equity_fixed60.csv")
     if port is not None:
-        port.equity.to_csv(PATHS.reports / "backtest_equity_oos.csv")
+        equity_frame(port.equity).to_csv(PATHS.reports / "backtest_equity_oos.csv")
     return out
