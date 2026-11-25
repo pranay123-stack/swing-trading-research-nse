@@ -33,11 +33,21 @@ DESCRIPTIONS = [
 
 
 def _describe(name: str) -> str:
+    ctxp = PATHS.reports / "research_context.json"
+    latest = json.loads(ctxp.read_text())["as_of"] if ctxp.exists() else ""
+    for pre, kind in (("Swing_Trading_Research_", "research report (PDF)"), ("trade_ideas_", "trade ideas (CSV)")):
+        if name.startswith(pre):
+            day = name[len(pre):].rsplit(".", 1)[0]
+            if latest and day != latest:
+                return (f"**Earlier {kind}, data as of {day}** — kept unchanged as the record of what was published on that close "
+                        f"(ideas first published there and still live are tracked in the latest report).")
     for prefix, d in DESCRIPTIONS:
         if name.startswith(prefix):
             return d
     if name.endswith(".png"):
         parts = name[:-4].split("_")
+        if len(parts) >= 3 and latest and parts[2] != latest:
+            return f"**Earlier chart (PNG)** — {parts[0]} {parts[1].lower()} idea as published with data to {parts[2]}."
         if len(parts) >= 3:
             return f"**Daily candlestick chart (PNG)** — {parts[0]} {parts[1].lower()} idea, data as of {parts[2]}: candles, EMA20/50, SMA200, " \
                    "volume, RSI 14, support/resistance, entry, stop, T1, T2."
@@ -73,6 +83,8 @@ def _f(x, nd=2):
 
 
 def report_markdown(ctx: dict, bt: dict | None) -> str:
+    from reporting.pdf_report import load_analyst_notes
+    notes = load_analyst_notes()
     rel = lambda p: Path(p).resolve().relative_to(PATHS.root).as_posix()  # noqa: E731
     pdf = next(iter(sorted(PATHS.reports.glob(f"Swing_Trading_Research_{ctx['as_of']}.pdf"))), None)
     reg = ctx["regime"]
@@ -94,10 +106,11 @@ def report_markdown(ctx: dict, bt: dict | None) -> str:
                  f"individually argued theses with defined risk.")
     L.append("")
     if ideas:
-        L.append("| # | Stock | Side / setup | CMP | Entry | Stop | T1 | T2 | R:R T1 / T2 | Score |")
-        L.append("|---|---|---|---|---|---|---|---|---|---|")
+        from reporting.pdf_report import short_status
+        L.append("| # | Stock | Side / setup | Status | CMP | Entry | Stop | T1 | T2 | R:R T1 / T2 | Score |")
+        L.append("|---|---|---|---|---|---|---|---|---|---|---|")
         for i, d in enumerate(ideas, 1):
-            L.append(f"| {i} | **{d['symbol']}** ({d['company']}) | {d['side']} · {d['setup']} | {_f(d['cmp'])} | {_f(d['entry'])} | "
+            L.append(f"| {i} | **{d['symbol']}** ({d['company']}) | {d['side']} · {d['setup']} | {short_status(d)} | {_f(d['cmp'])} | {_f(d['entry'])} | "
                      f"{_f(d['stop'])} | {_f(d['t1'])} | {_f(d['t2'])} | {d['rr_t1']:.2f} / {d['rr_t2']:.2f} | {d['score']:.0f} ({d['confidence']}) |")
         L.append("")
 
@@ -132,6 +145,8 @@ def report_markdown(ctx: dict, bt: dict | None) -> str:
             L.append("\n![Out-of-sample paper equity](reports/backtest_equity.png)")
     L.append("")
 
+    if notes.get("_backtest_verdict"):
+        L.append(f"\n*Reading the evidence:* {notes['_backtest_verdict']}\n")
     L.append("#### 3. Current market regime\n")
     L.append("| Component | Points | Observation |")
     L.append("|---|---|---|")
@@ -144,6 +159,8 @@ def report_markdown(ctx: dict, bt: dict | None) -> str:
             L.append(f"| {k} | {_f(q['ltp'])} | {q['change_pct']:+.2f}% | {q['ts']} |")
     L.append("")
 
+    if notes.get("_regime"):
+        L.append(f"*{notes['_regime']}*\n")
     L.append("#### 4. Sector analysis\n")
     L.append("| Index | 5d % | 20d % | 60d % | vs NIFTY 20d | vs NIFTY 60d | > EMA50 | Quadrant |")
     L.append("|---|---|---|---|---|---|---|---|")
@@ -152,13 +169,33 @@ def report_markdown(ctx: dict, bt: dict | None) -> str:
                  f"{_f(s['rs_nifty60'], 1)} | {'yes' if s['above_ema50'] else 'no'} | {s['quadrant']} |")
     L.append("")
 
+    if notes.get("_sectors"):
+        L.append(f"\n*{notes['_sectors']}*\n")
     L.append("#### 5–11. Trade ideas\n")
+    if ctx.get("n_carried"):
+        L.append(f"{ctx['n_carried']} idea(s) published on an earlier close are still live; their thesis, levels and score are shown exactly as "
+                 f"published, with status as of the {ctx['as_of']} close. {ctx.get('n_new', 0)} new idea(s) qualified on this close.\n")
+    misses = [r for r in ctx["screen"].get("top", []) if not r.get("passed")][:12]
+    if ctx.get("shortfall") and misses:
+        L.append(f"**Closest setups on the {ctx['as_of']} close that did not qualify** (not promoted — relaxing a rule after seeing the "
+                 "result would make the selection meaningless):\n")
+        L.append("| Stock | Side / setup | Score | R:R T1/T2 | Why it did not qualify |")
+        L.append("|---|---|---|---|---|")
+        for r in misses:
+            L.append(f"| {r['symbol']} | {r['side']} · {r['setup']} | {r['score']:.0f} | {r['rr_t1']:.2f} / {r['rr_t2']:.2f} | {r['reject_reason']} |")
+        L.append("")
     for i, d in enumerate(ideas, 1):
         sz = d["sizing"]
         L.append(f"##### Idea {i}: {d['symbol']} — {d['side']} ({d['setup']}), score {d['score']:.0f}/100\n")
+        if d.get("status_text"):
+            L.append(f"> **Status at the {ctx['as_of']} close:** {d['status_text']}"
+                     + (f"  \n> Published on the {d['issued_on']} close; thesis, levels and score shown exactly as published." if d.get("origin") == "carried" else "") + "\n")
         L.append(f"{d['company']} · NSE · {d['industry']} · signal session {d['signal_date']} · "
                  f"{'executable as ' + sz['instrument'].replace('_', ' ').lower() if sz.get('executable') else 'research view only'}\n")
         L.append(f"![{d['symbol']} daily chart]({rel(d['chart'])})\n")
+        n = notes.get(d["symbol"], {})
+        if n.get("thesis"):
+            L.append(f"**Analyst view.** {n['thesis']}\n")
         for q, k in (("Why this stock?", "why_stock"), ("Why now?", "why_now"), ("What is the catalyst?", "catalyst"),
                      ("What confirms the trade?", "confirms"), ("What invalidates the trade?", "invalidates")):
             L.append(f"**{q}**")
@@ -177,7 +214,7 @@ def report_markdown(ctx: dict, bt: dict | None) -> str:
         L.append(f"| Paper position | {sz.get('qty', 0):,} | {sz.get('note', '')}; notional Rs {_f(sz.get('notional'), 0)}, "
                  f"risk Rs {_f(sz.get('risk_amount'), 0)} ({_f(sz.get('risk_pct_capital'))}% of capital) |")
         ev = d.get("events") or {}
-        L.append(f"\n**Event risk:** {ev.get('summary', 'not checked')}\n")
+        L.append(f"\n**Event risk:** {ev.get('summary', 'not checked')}" + (f" {n['events_note']}" if n.get("events_note") else "") + "\n")
         L.append("| Score component | Points | Supporting | Against |")
         L.append("|---|---|---|---|")
         for c in d["scorecard"]["components"]:
@@ -185,13 +222,18 @@ def report_markdown(ctx: dict, bt: dict | None) -> str:
         L.append("")
 
     L.append("#### 12. Research limitations\n")
-    L.append("Technical analysis only (no valuation/news catalyst claimed); Yahoo earnings dates can be estimates; survivorship bias in "
+    for x in notes.get("_limitations", []):
+        L.append(f"- {x}")
+    L.append("\nTechnical analysis only (no valuation/news catalyst claimed); Yahoo earnings dates can be estimates; survivorship bias in "
              "the backtest universe; shorts backtested on cash prices as a futures proxy; daily bars hide the intraday path (worst case "
              "assumed); stops are not guaranteed through gaps; scores rank evidence, they are not probabilities.\n")
     L.append("#### 13. Data sources and as-of timestamp\n")
     L.append(f"Kotak Neo historical + quotes API (prices, {ctx['as_of']} close), Kotak scrip master ({ctx['scrip_master_date']}), "
              "NSE Indices constituent files, Yahoo Finance calendar, Kotak Neo pricing page / NSE charges / Budget 2026 STT for costs. "
              "All timestamps IST.")
+    if ctx.get("data_warnings"):
+        L.append("\n**Data warnings for this run:**\n")
+        L += [f"- {w}" for w in ctx["data_warnings"]]
     return "\n".join(L)
 
 

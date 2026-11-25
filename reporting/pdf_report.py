@@ -74,6 +74,17 @@ def _footer(canvas, doc):
     canvas.restoreState()
 
 
+def short_status(d: dict) -> str:
+    st = d.get("status") or {}
+    if d.get("origin") != "carried":
+        return f"New ({d['signal_date']})"
+    if st.get("state") == "OPEN":
+        return f"Issued {d['issued_on']}; triggered {st.get('entry_date')} @ {fmt(st.get('entry_fill'))}"
+    if st.get("state") == "PENDING":
+        return f"Issued {d['issued_on']}; not triggered yet"
+    return f"Issued {d['issued_on']}; {st.get('state', '').lower()}"
+
+
 def load_analyst_notes() -> dict:
     f = PATHS.root / "data" / "analyst_notes.json"
     return json.loads(f.read_text()) if f.exists() else {}
@@ -106,8 +117,12 @@ def build_pdf(ctx: dict, bt: dict | None, out: Path | None = None) -> Path:
         f"A systematic scan of {ctx['universe']['usable']} liquid NSE stocks (NIFTY 100 + NIFTY MIDCAP 150, after liquidity and data-quality "
         f"filters) produced {ctx['screen']['candidates']} technical setups, of which {ctx['screen']['passed']} passed every rule "
         f"(trend, volume, structure-based reward:risk, regime and a minimum score of {STRATEGY.min_score:.0f}/100). After event-risk, "
-        f"executability, sector and correlation checks, <b>{len(ideas)} trade idea{'s' if len(ideas) != 1 else ''}</b> "
-        f"{'are' if len(ideas) != 1 else 'is'} presented."))
+        f"executability, sector and correlation checks, {ctx.get('n_new', len(ideas))} new idea(s) qualified on this close."))
+    if ctx.get("n_carried"):
+        S.append(p(f"<b>{ctx['n_carried']} idea(s) published on an earlier close are still live</b> and keep their slot. Their thesis, levels and "
+                   f"score are shown exactly as published (nothing is re-fitted after publication), with their status as of the "
+                   f"{ctx['as_of']} close. In total <b>{len(ideas)} trade idea{'s' if len(ideas) != 1 else ''}</b> "
+                   f"{'are' if len(ideas) != 1 else 'is'} presented."))
     if ctx.get("shortfall"):
         S.append(p(f"<b>Shortfall:</b> {ctx['shortfall']} fewer idea(s) than requested met every criterion. The gap is reported rather than filled "
                    f"with weaker setups.", BODY))
@@ -128,12 +143,12 @@ def build_pdf(ctx: dict, bt: dict | None, out: Path | None = None) -> Path:
                  "theses with defined risk, not as outputs of a proven system (details in section 2).")
         S.append(p(text))
     S.append(Spacer(1, 6))
-    rows = [["#", "Stock", "Side / setup", "CMP", "Entry", "Stop", "T1", "T2", "R:R (T1/T2)", "Score"]]
+    rows = [["#", "Stock", "Side / setup", "Status", "CMP", "Entry", "Stop", "T1", "T2", "R:R T1, T2", "Score"]]
     for i, d in enumerate(ideas, 1):
-        rows.append([i, f"<b>{d['symbol']}</b><br/>{d['company']}", f"{d['side']}<br/>{d['setup']}", fmt(d["cmp"]),
-                     fmt(d["entry"]), fmt(d["stop"]), fmt(d["t1"]), fmt(d["t2"]), f"{d['rr_t1']:.2f} / {d['rr_t2']:.2f}",
-                     f"{d['score']:.0f} ({d['confidence']})"])
-    S.append(table(rows, [8 * mm, 38 * mm, 32 * mm, 16 * mm, 16 * mm, 16 * mm, 16 * mm, 16 * mm, 18 * mm, 16 * mm]))
+        rows.append([i, f"<b>{d['symbol']}</b><br/>{d['company']}", f"{d['side']}<br/>{d['setup']}", short_status(d), fmt(d["cmp"]),
+                     fmt(d["entry"]), fmt(d["stop"]), fmt(d["t1"]), fmt(d["t2"]), f"{d['rr_t1']:.2f}<br/>{d['rr_t2']:.2f}",
+                     f"{d['score']:.0f}<br/>{d['confidence']}"])
+    S.append(table(rows, [5 * mm, 25 * mm, 21 * mm, 25 * mm, 15 * mm, 15 * mm, 15 * mm, 15 * mm, 15 * mm, 14 * mm, 16 * mm], font=7.2))
     S.append(Spacer(1, 4))
     for d in ideas:
         n = notes.get(d["symbol"], {})
@@ -249,6 +264,16 @@ def build_pdf(ctx: dict, bt: dict | None, out: Path | None = None) -> Path:
     # ------------------------------------------------------------------ 5-11. ideas
     S += [PageBreak(), p("5. Three Best Trade Ideas" if len(ideas) == 3 else f"5. Trade Ideas ({len(ideas)} of 3 requested)", H1)]
     S.append(p("Sections 6–11 follow for each idea: technical thesis, levels, reward:risk, invalidation, event risk and the dated daily chart."))
+    misses = [r for r in ctx["screen"].get("top", []) if not r.get("passed")][:12]
+    if ctx.get("shortfall") and misses:
+        S.append(p(f"Closest setups on the {ctx['as_of']} close that did not qualify", H2))
+        S.append(p("Shown for transparency: these are the highest-scoring setups the scan found, with the rule each one failed. None was "
+                   "promoted to an idea, because relaxing a rule after seeing the result would make the selection meaningless."))
+        rows = [["Stock", "Side / setup", "Score", "R:R T1/T2", "Why it did not qualify"]]
+        for r in misses:
+            rows.append([r["symbol"], f"{r['side']} · {r['setup']}", f"{r['score']:.0f}", f"{r['rr_t1']:.2f} / {r['rr_t2']:.2f}",
+                         r["reject_reason"]])
+        S.append(table(rows, [22 * mm, 46 * mm, 12 * mm, 18 * mm, W - 98 * mm], font=7))
     for i, d in enumerate(ideas, 1):
         n = notes.get(d["symbol"], {})
         sz = d["sizing"]
@@ -258,8 +283,16 @@ def build_pdf(ctx: dict, bt: dict | None, out: Path | None = None) -> Path:
         S.append(p(f"{d['company']} · NSE · {d['industry']} · {', '.join(d['indices'])} · signal session {d['signal_date']} · "
                    f"score <b>{d['score']:.0f}/100</b> ({d['confidence']} confidence) · "
                    f"{'executable: ' + sz['instrument'].replace('_', ' ').lower() if sz.get('executable') else 'research view only'}", SMALL))
+        if d.get("status_text"):
+            S.append(Spacer(1, 3))
+            box = Table([[Paragraph(f"<b>Status at the {ctx['as_of']} close:</b> {d['status_text']}"
+                                    + (f"<br/>Published on the {d['issued_on']} close; the thesis, levels and score below are shown exactly as "
+                                       f"published." if d.get("origin") == "carried" else ""), BODY)]], colWidths=[W])
+            box.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, -1), LIGHT), ("BOX", (0, 0), (-1, -1), 0.6, NAVY),
+                                     ("TOPPADDING", (0, 0), (-1, -1), 4), ("BOTTOMPADDING", (0, 0), (-1, -1), 4)]))
+            S += [box, Spacer(1, 3)]
         S.append(Image(d["chart"], width=W, height=W * 8.2 / 13))
-        S.append(p(f"Chart: {d['symbol']} daily candles, last 120 sessions to {d['signal_date']}, EMA20/EMA50/SMA200, volume with "
+        S.append(p(f"Chart: {d['symbol']} daily candles, last 120 sessions to {ctx['as_of']} (signal session {d['signal_date']} marked), EMA20/EMA50/SMA200, volume with "
                    f"20-day average, RSI 14, nearest support/resistance and the trade levels. Source: Kotak Neo historical API.", SMALL))
         if n.get("thesis"):
             S += [p("Analyst view", H2), p(n["thesis"])]
@@ -345,6 +378,8 @@ def build_pdf(ctx: dict, bt: dict | None, out: Path | None = None) -> Path:
             ["Earnings / dividend dates", "Yahoo Finance calendar (yfinance); manual exchange checks where noted", "see each idea"],
             ["Costs", "Kotak Neo pricing page; NSE charge schedule; Budget 2026 STT (effective 2026-04-01)", "checked 2026-11-25"]]
     S.append(table(rows, [45 * mm, 95 * mm, 40 * mm]))
+    if ctx.get("data_warnings"):
+        S += [Spacer(1, 4), p("<b>Data warnings for this run</b>")] + bullets(ctx["data_warnings"])
     S += [Spacer(1, 6), p(f"Report generated {datetime.now(IST).strftime('%Y-%m-%d %H:%M')} IST by run_research.py (run {ctx['run_id']}). "
                           "All timestamps are IST. Paper research only — this document is not investment advice.", SMALL)]
     doc.build(S, onFirstPage=_footer, onLaterPages=_footer)

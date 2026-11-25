@@ -27,7 +27,8 @@ current analysis, dated daily charts, clear entry / stop / targets / risk-reward
 10. [Backtesting and what it found](#backtesting-and-what-it-found)
 11. [Project structure](#project-structure)
 12. [Tests](#tests)
-13. [Limitations](#limitations)
+13. [Progress checklist](#progress-checklist)
+14. [Limitations](#limitations)
 
 ---
 
@@ -140,7 +141,7 @@ What it does, in order (each step prints a line):
 | `[4]` | Classifies the market regime. |
 | `[5]` | Scans every liquid stock for setups and scores them. |
 | `[6]` | Runs the walk-forward backtest (≈10 min). |
-| `[7]` | Selects up to 3 ideas: event risk, executability, one per sector, correlation ≤ 0.75. |
+| `[7]` | **Carries forward live ideas** published on earlier runs (paper order still pending, or position still open) with their original thesis and levels and a status as of today's close; then fills the remaining slots (up to 3) with new ideas: event risk, executability, one per sector, correlation ≤ 0.75 (also vs the carried ideas). |
 | `[8]` | Draws a daily candlestick chart for each idea. |
 | `[9]` | Writes the PDF, CSV, JSON, saves everything to SQLite and refreshes the report section of this README. |
 
@@ -151,7 +152,7 @@ Options:
 | `--no-sync` | don't download; use the candles already in the database |
 | `--skip-backtest` | reuse the last backtest (`reports/backtest_summary.json`) |
 | `--no-yahoo` | skip the Yahoo Finance earnings/dividend calendar |
-| `--paper` | also place the selected ideas as **paper** orders (simulation) |
+| `--no-paper` | don't place new ideas as paper orders (by default every published idea gets a **paper** order, which is what lets it be tracked and carried forward) |
 | `--n 5` | ask for a different number of ideas |
 
 Outputs:
@@ -176,7 +177,13 @@ Columns of the backtest CSVs:
 
 `_oos` = walk-forward out-of-sample portfolio (per-fold score thresholds); `_fixed60` = whole period with the default threshold 60.
 
-**Best time to run:** after 15:45 IST on a trading day, so the day's completed session is included.
+**Best time to run:** after 15:45 IST on a trading day, so the day's completed session is included. Running it after each
+close keeps the published ideas' status current and adds new ideas as slots free up; an idea leaves the list when its paper
+trade is closed (stop, targets or 15-session time stop) or its entry expires/cancels.
+
+**Data warnings.** If Kotak's historical API has not yet published an index's bar for the session (seen for INDIA VIX on
+25 Nov 2026), that bar is completed in memory from Kotak's quotes API and the substitution is printed and listed in the report;
+nothing is written to the candle store.
 
 ---
 
@@ -209,8 +216,10 @@ saves the file directly. This list is regenerated on every run.
 <!-- FILES:START -->
 **`reports/`**
 
-- [`Swing_Trading_Research_2026-11-23.pdf`](reports/Swing_Trading_Research_2026-11-23.pdf) (595 KB) — **The research report (PDF)** — executive summary, methodology, backtest evidence, market regime, sector analysis, each trade idea with its chart, thesis, levels, event risk and score card, limitations, data sources.  
+- [`Swing_Trading_Research_2026-11-23.pdf`](reports/Swing_Trading_Research_2026-11-23.pdf) (595 KB) — **Earlier research report (PDF), data as of 2026-11-23** — kept unchanged as the record of what was published on that close (ideas first published there and still live are tracked in the latest report).  
   [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/Swing_Trading_Research_2026-11-23.pdf) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/Swing_Trading_Research_2026-11-23.pdf)
+- [`Swing_Trading_Research_2026-11-25.pdf`](reports/Swing_Trading_Research_2026-11-25.pdf) (612 KB) — **The research report (PDF)** — executive summary, methodology, backtest evidence, market regime, sector analysis, each trade idea with its chart, thesis, levels, event risk and score card, limitations, data sources.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/Swing_Trading_Research_2026-11-25.pdf) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/Swing_Trading_Research_2026-11-25.pdf)
 - [`backtest_equity.png`](reports/backtest_equity.png) (75 KB) — **Equity curve chart (PNG)** — the out-of-sample paper portfolio's equity.  
   [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/backtest_equity.png) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/backtest_equity.png)
 - [`backtest_equity_fixed60.csv`](reports/backtest_equity_fixed60.csv) (28 KB) — **Full-period equity curve (CSV)** — same portfolio over the whole period with the fixed score threshold 60.  
@@ -225,17 +234,23 @@ saves the file directly. This list is regenerated on every run.
   [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/backtest_signals.csv) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/backtest_signals.csv)
 - [`backtest_summary.json`](reports/backtest_summary.json) (11 KB) — **Backtest summary (JSON)** — period, signal counts, fill rate, isolated / walk-forward / portfolio metrics, before-vs-after-cost table, results by setup, side and regime, every walk-forward fold, assumptions.  
   [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/backtest_summary.json) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/backtest_summary.json)
-- [`research_context.json`](reports/research_context.json) (57 KB) — **Full research context (JSON)** — everything the PDF is built from: regime components, sector table, universe and liquidity exclusions, top 25 screened setups with reject reasons, ideas with score cards and indicators.  
+- [`research_context.json`](reports/research_context.json) (61 KB) — **Full research context (JSON)** — everything the PDF is built from: regime components, sector table, universe and liquidity exclusions, top 25 screened setups with reject reasons, ideas with score cards and indicators.  
   [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/research_context.json) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/research_context.json)
-- [`trade_ideas_2026-11-23.csv`](reports/trade_ideas_2026-11-23.csv) (1 KB) — **Trade ideas (CSV)** — one row per idea: symbol, side, setup, CMP, entry, stop, T1, T2, risk/reward, ATR, position size, capital at risk, score, holding period, event summary.  
+- [`trade_ideas_2026-11-23.csv`](reports/trade_ideas_2026-11-23.csv) (1 KB) — **Earlier trade ideas (CSV), data as of 2026-11-23** — kept unchanged as the record of what was published on that close (ideas first published there and still live are tracked in the latest report).  
   [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/trade_ideas_2026-11-23.csv) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/trade_ideas_2026-11-23.csv)
+- [`trade_ideas_2026-11-25.csv`](reports/trade_ideas_2026-11-25.csv) (1 KB) — **Trade ideas (CSV)** — one row per idea: symbol, side, setup, CMP, entry, stop, T1, T2, risk/reward, ATR, position size, capital at risk, score, holding period, event summary.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/reports/trade_ideas_2026-11-25.csv) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/reports/trade_ideas_2026-11-25.csv)
 
 **`charts/`**
 
-- [`HCLTECH_LONG_2026-11-23.png`](charts/HCLTECH_LONG_2026-11-23.png) (222 KB) — **Daily candlestick chart (PNG)** — HCLTECH long idea, data as of 2026-11-23: candles, EMA20/50, SMA200, volume, RSI 14, support/resistance, entry, stop, T1, T2.  
+- [`HCLTECH_LONG_2026-11-23.png`](charts/HCLTECH_LONG_2026-11-23.png) (222 KB) — **Earlier chart (PNG)** — HCLTECH long idea as published with data to 2026-11-23.  
   [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/charts/HCLTECH_LONG_2026-11-23.png) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/charts/HCLTECH_LONG_2026-11-23.png)
-- [`TITAN_LONG_2026-11-23.png`](charts/TITAN_LONG_2026-11-23.png) (234 KB) — **Daily candlestick chart (PNG)** — TITAN long idea, data as of 2026-11-23: candles, EMA20/50, SMA200, volume, RSI 14, support/resistance, entry, stop, T1, T2.  
+- [`HCLTECH_LONG_2026-11-25.png`](charts/HCLTECH_LONG_2026-11-25.png) (226 KB) — **Daily candlestick chart (PNG)** — HCLTECH long idea, data as of 2026-11-25: candles, EMA20/50, SMA200, volume, RSI 14, support/resistance, entry, stop, T1, T2.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/charts/HCLTECH_LONG_2026-11-25.png) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/charts/HCLTECH_LONG_2026-11-25.png)
+- [`TITAN_LONG_2026-11-23.png`](charts/TITAN_LONG_2026-11-23.png) (234 KB) — **Earlier chart (PNG)** — TITAN long idea as published with data to 2026-11-23.  
   [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/charts/TITAN_LONG_2026-11-23.png) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/charts/TITAN_LONG_2026-11-23.png)
+- [`TITAN_LONG_2026-11-25.png`](charts/TITAN_LONG_2026-11-25.png) (238 KB) — **Daily candlestick chart (PNG)** — TITAN long idea, data as of 2026-11-25: candles, EMA20/50, SMA200, volume, RSI 14, support/resistance, entry, stop, T1, T2.  
+  [View](https://github.com/pranay123-stack/swing-trading-research-nse/blob/main/charts/TITAN_LONG_2026-11-25.png) · [Download](https://github.com/pranay123-stack/swing-trading-research-nse/raw/main/charts/TITAN_LONG_2026-11-25.png)
 
 Download everything at once: [repository ZIP](https://github.com/pranay123-stack/swing-trading-research-nse/archive/refs/heads/main.zip).
 <!-- FILES:END -->
@@ -274,20 +289,20 @@ shaded risk and reward zones.
 Generated automatically from the same data as the PDF at the end of every `run_research.py` run.
 
 <!-- REPORT:START -->
-**Report:** [`reports/Swing_Trading_Research_2026-11-23.pdf`](reports/Swing_Trading_Research_2026-11-23.pdf)
+**Report:** [`reports/Swing_Trading_Research_2026-11-25.pdf`](reports/Swing_Trading_Research_2026-11-25.pdf)
   
-**Data as of:** 2026-11-23 NSE close · **generated:** 2026-11-25T11:39:47+05:30 IST · run `20261125-113940-ebf2`
+**Data as of:** 2026-11-25 NSE close · **generated:** 2026-11-25T17:43:55+05:30 IST · run `20261125-174344-6c3d`
 
 #### 1. Executive summary
 
-* Market regime: **Strong Bullish** (composite +0.67 on −1…+1). Breadth: 59% of the universe above its 50-day EMA, 52% above its 200-day SMA. INDIA VIX 17.70.
-* Scan: 249 liquid stocks → 67 setups → 2 passed every rule → **2 idea(s)** after event, executability, sector and correlation checks. **Shortfall of 1** reported, not filled.
+* Market regime: **Strong Bullish** (composite +0.67 on −1…+1). Breadth: 63% of the universe above its 50-day EMA, 54% above its 200-day SMA. INDIA VIX 17.67.
+* Scan: 249 liquid stocks → 45 setups → 0 passed every rule → **2 idea(s)** after event, executability, sector and correlation checks. **Shortfall of 1** reported, not filled.
 * Historical evidence: walk-forward out-of-sample expectancy **-0.18 R/trade** (t = -6.7), 1 of 8 test windows positive — the setup family shows **no edge**; ideas are presented as individually argued theses with defined risk.
 
-| # | Stock | Side / setup | CMP | Entry | Stop | T1 | T2 | R:R T1 / T2 | Score |
-|---|---|---|---|---|---|---|---|---|---|
-| 1 | **TITAN** (Titan Company Ltd.) | LONG · Pullback to 50-day EMA | 4,642.30 | 4,686.80 | 4,493.40 | 4,969.30 | 5,165.10 | 1.46 / 2.47 | 66 (Moderate) |
-| 2 | **HCLTECH** (HCL Technologies Ltd.) | LONG · Pullback to 50-day EMA | 1,377.60 | 1,378.00 | 1,300.30 | 1,466.80 | 1,537.50 | 1.14 / 2.05 | 65 (Moderate) |
+| # | Stock | Side / setup | Status | CMP | Entry | Stop | T1 | T2 | R:R T1 / T2 | Score |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | **TITAN** (Titan Company Ltd.) | LONG · Pullback to 50-day EMA | Issued 2026-11-23; triggered 2026-11-25 @ 4,696.35 | 4,686.60 | 4,686.80 | 4,493.40 | 4,969.30 | 5,165.10 | 1.46 / 2.47 | 66 (Moderate) |
+| 2 | **HCLTECH** (HCL Technologies Ltd.) | LONG · Pullback to 50-day EMA | Issued 2026-11-23; triggered 2026-11-25 @ 1,390.69 | 1,380.00 | 1,378.00 | 1,300.30 | 1,466.80 | 1,537.50 | 1.14 / 2.05 | 65 (Moderate) |
 
 #### 2. Research methodology
 
@@ -323,58 +338,90 @@ Historical validation (2023-11-15 → 2026-10-27, 731 sessions, 5230 setups, 84%
 
 ![Out-of-sample paper equity](reports/backtest_equity.png)
 
+
+*Reading the evidence:* The scan is used here as a disciplined filter (liquidity, trend, structural stops and targets, event risk), not as a forecasting model: over three years its setups showed no edge before costs. Each idea therefore has to stand on its own chart and its own defined risk, and is sized so that being wrong costs 1% of capital.
+
 #### 3. Current market regime
 
 | Component | Points | Observation |
 |---|---|---|
-| NIFTY 50 short-term trend | +2 | close 25,350 > EMA20 24,699; EMA20 > EMA50 24,049 |
-| NIFTY 50 primary trend | +2 | close above SMA200 23,996; EMA50 20-day slope +3.61% |
+| NIFTY 50 short-term trend | +2 | close 25,819 > EMA20 24,806; EMA20 > EMA50 24,118 |
+| NIFTY 50 primary trend | +2 | close above SMA200 23,999; EMA50 20-day slope +3.99% |
 | NIFTY BANK trend | +2 | close above EMA50; EMA20 > EMA50 |
 | NIFTY MIDCAP 100 trend | +2 | close above EMA50; EMA20 > EMA50 |
-| Breadth (EMA50) | +1 | 59% of universe stocks close above their 50-day EMA |
-| Breadth (SMA200) | +0 | 52% of universe stocks close above their 200-day SMA |
-| INDIA VIX | -1 | VIX 17.70, +12.9% over 5 sessions |
+| Breadth (EMA50) | +1 | 63% of universe stocks close above their 50-day EMA |
+| Breadth (SMA200) | +0 | 54% of universe stocks close above their 200-day SMA |
+| INDIA VIX | -1 | VIX 17.67, +13.9% over 5 sessions |
 
 | Index | Last | Change | Quote time (IST) |
 |---|---|---|---|
-| Nifty 50 | 25,917.85 | +2.24% | 2026-11-25T11:39:49+05:30 |
-| Nifty Bank | 63,964.55 | +2.20% | 2026-11-25T11:39:49+05:30 |
-| INDIA VIX | 17.75 | +0.28% | 2026-11-25T11:39:45+05:30 |
+| Nifty 50 | 25,819.25 | +1.85% | 2026-11-25T15:29:37+05:30 |
+| Nifty Bank | 63,703.25 | +1.79% | 2026-11-25T15:29:37+05:30 |
+| INDIA VIX | 17.67 | -0.17% | 2026-11-25T15:58:05+05:30 |
+
+*Analyst view: the tape is strong but stretched. NIFTY 50 closed 25,819 on 25 Nov, about 7% above its 50-day EMA (24,118) and 7.6% above its 200-day SMA (23,999), and INDIA VIX (17.67) rose 13.9% over five sessions. Breadth is healthy rather than euphoric (63% of the universe above its 50-day EMA, 54% above its 200-day SMA). The regime supports long ideas, but an index this far above its averages also raises the odds of a sharp, broad pullback inside a 1–3 week window. That is the main portfolio-level risk to both ideas below, and the reason position risk is capped at 1% each.*
 
 #### 4. Sector analysis
 
 | Index | 5d % | 20d % | 60d % | vs NIFTY 20d | vs NIFTY 60d | > EMA50 | Quadrant |
 |---|---|---|---|---|---|---|---|
-| Nifty Realty | 3.6 | 19.3 | 3.5 | 7.1 | -1.2 | yes | Improving |
-| Nifty PSU Bank | 2.7 | 18.1 | 10.3 | 6.0 | 5.3 | yes | Leading |
-| Nifty Fin Service | 0.5 | 15.1 | 6.7 | 3.3 | 1.9 | yes | Leading |
-| Nifty Bank | 1.6 | 15.1 | 8.3 | 3.3 | 3.4 | yes | Leading |
-| NIFTY CONSR DURBL | 0.3 | 14.4 | -4.3 | 2.7 | -8.6 | yes | Improving |
-| Nifty Pvt Bank | 1.4 | 14.3 | 10.6 | 2.6 | 5.6 | yes | Leading |
-| Nifty Auto | 3.3 | 14.1 | -1.8 | 2.4 | -6.2 | yes | Improving |
-| Nifty Consumption | 1.4 | 13.5 | 2.5 | 1.9 | -2.2 | yes | Improving |
-| Nifty FMCG | 1.3 | 12.9 | 2.2 | 1.3 | -2.4 | yes | Improving |
-| Nifty Media | -0.8 | 12.3 | 8.6 | 0.8 | 3.7 | yes | Leading |
-| Nifty 50 | 0.2 | 11.4 | 4.7 | 0.0 | 0.0 | yes | Leading |
-| NIFTY HEALTHCARE | 1.5 | 11.3 | 5.1 | -0.1 | 0.4 | yes | Weakening |
-| Nifty Infra | -0.1 | 10.0 | 2.6 | -1.2 | -2.0 | yes | Lagging |
-| Nifty 500 | -0.0 | 9.9 | 0.8 | -1.4 | -3.7 | yes | Improving |
-| Nifty Pharma | 0.7 | 9.8 | 6.2 | -1.5 | 1.5 | yes | Weakening |
-| NIFTY MIDCAP 100 | -0.3 | 8.7 | -4.2 | -2.4 | -8.5 | yes | Improving |
-| Nifty Serv Sector | -0.2 | 8.4 | 5.9 | -2.7 | 1.1 | yes | Weakening |
-| NIFTY OIL AND GAS | -0.5 | 7.5 | 1.4 | -3.5 | -3.2 | yes | Lagging |
-| Nifty Commodities | -2.1 | 5.1 | -4.9 | -5.6 | -9.2 | no | Lagging |
-| Nifty Energy | -1.7 | 4.7 | -3.8 | -6.1 | -8.1 | no | Lagging |
-| Nifty Metal | -5.1 | 0.7 | -12.7 | -9.6 | -16.7 | no | Lagging |
-| Nifty IT | -0.3 | -1.3 | 5.1 | -11.4 | 0.3 | yes | Weakening |
+| Nifty Fin Service | 2.0 | 18.4 | 9.5 | 4.3 | 2.1 | yes | Leading |
+| Nifty PSU Bank | 1.1 | 18.1 | 11.7 | 4.0 | 4.2 | yes | Leading |
+| Nifty Bank | 2.3 | 18.0 | 10.8 | 4.0 | 3.4 | yes | Leading |
+| Nifty Pvt Bank | 2.7 | 17.7 | 12.9 | 3.7 | 5.3 | yes | Leading |
+| Nifty Realty | 1.7 | 17.0 | 3.5 | 3.1 | -3.4 | yes | Improving |
+| Nifty FMCG | 5.3 | 16.3 | 6.6 | 2.5 | -0.5 | yes | Improving |
+| Nifty Consumption | 2.9 | 14.2 | 4.8 | 0.6 | -2.2 | yes | Improving |
+| Nifty Auto | 3.8 | 13.7 | -0.2 | 0.2 | -6.9 | yes | Improving |
+| Nifty 50 | 1.7 | 13.5 | 7.2 | 0.0 | 0.0 | yes | Leading |
+| NIFTY CONSR DURBL | 0.4 | 12.8 | -5.2 | -0.6 | -11.5 | yes | Improving |
+| NIFTY HEALTHCARE | 3.3 | 11.8 | 6.6 | -1.5 | -0.6 | yes | Lagging |
+| Nifty 500 | 0.8 | 10.5 | 2.3 | -2.6 | -4.5 | yes | Lagging |
+| Nifty Pharma | 2.9 | 10.3 | 7.9 | -2.9 | 0.6 | yes | Weakening |
+| Nifty Infra | 0.3 | 10.0 | 3.9 | -3.1 | -3.1 | yes | Lagging |
+| Nifty Serv Sector | 1.4 | 9.9 | 8.1 | -3.1 | 0.9 | yes | Weakening |
+| NIFTY OIL AND GAS | 0.1 | 8.4 | 3.2 | -4.5 | -3.7 | yes | Lagging |
+| NIFTY MIDCAP 100 | -0.2 | 8.0 | -3.8 | -4.9 | -10.3 | yes | Lagging |
+| Nifty Commodities | -2.5 | 4.4 | -4.5 | -8.0 | -10.9 | no | Lagging |
+| Nifty Energy | -1.4 | 4.0 | -3.8 | -8.4 | -10.2 | no | Lagging |
+| Nifty Media | -5.8 | 3.6 | 4.8 | -8.8 | -2.3 | yes | Lagging |
+| Nifty IT | 1.7 | 0.1 | 6.6 | -11.8 | -0.6 | yes | Lagging |
+| Nifty Metal | -7.6 | -2.0 | -13.8 | -13.6 | -19.5 | no | Lagging |
+
+
+*Analyst view: leadership is concentrated in financials (financial services, PSU banks, private banks: 'Leading', +3.7 to +4.3 points vs NIFTY over 20 sessions), with realty and FMCG improving; IT is the clearest laggard (−11.8 points, 'Lagging'). The two ideas are deliberately not in the leading groups: after a 15–20% sector run, banks offer poor reward:risk at fresh entries, while TITAN (consumer durables, 'Improving', roughly in line with NIFTY) and HCLTECH (IT, 'Lagging', although Nifty IT itself is above its 50- and 200-day averages) are pullback entries inside intact trends.*
 
 #### 5–11. Trade ideas
 
+2 idea(s) published on an earlier close are still live; their thesis, levels and score are shown exactly as published, with status as of the 2026-11-25 close. 0 new idea(s) qualified on this close.
+
+**Closest setups on the 2026-11-25 close that did not qualify** (not promoted — relaxing a rule after seeing the result would make the selection meaningless):
+
+| Stock | Side / setup | Score | R:R T1/T2 | Why it did not qualify |
+|---|---|---|---|---|
+| TRENT | LONG · Breakout | 87 | 0.27 / 1.40 | reward:risk to T1 0.27 < 1.0 (resistance 3,399.70 (swing high dominating 50 sessions each side, last 2026-07-03) is too close) |
+| INDIGO | LONG · Breakout | 83 | 0.94 / 1.76 | reward:risk to T1 0.94 < 1.0 (resistance 5,970.00 (swing high dominating 50 sessions each side, last 2025-11-24) is too close) |
+| TATACAP | LONG · Pullback to 50-day EMA | 76 | 0.47 / 1.25 | reward:risk to T1 0.47 < 1.0 (resistance 364.45 (4 touches, last 2026-11-12) is too close) |
+| DRREDDY | LONG · Support bounce | 75 | 0.09 / 2.62 | reward:risk to T1 0.09 < 1.0 (resistance 1,414.90 (swing high dominating 50 sessions each side, last 2026-06-29) is too close) |
+| JSWINFRA | LONG · Breakout | 75 | 0.92 / 1.47 | reward:risk to T1 0.92 < 1.0 (resistance 375.50 (swing high dominating 43 sessions each side, last 2026-09-22) is too close) |
+| TATACONSUM | LONG · Support bounce | 73 | 0.10 / 0.51 | entry 3.5 ATR above EMA20; extended, chasing |
+| NATIONALUM | SHORT · Bearish continuation | 73 | 1.02 / 1.45 | reward:risk to T2 1.45 < 2.0; structure does not support 1:2 |
+| TATACAP | LONG · Support bounce | 72 | 0.44 / 1.17 | reward:risk to T1 0.44 < 1.0 (resistance 364.45 (4 touches, last 2026-11-12) is too close) |
+| ULTRACEMCO | LONG · Support bounce | 70 | 0.59 / 3.32 | reward:risk to T1 0.59 < 1.0 (resistance 13,098.00 (3 touches, last 2026-02-26) is too close) |
+| COCHINSHIP | SHORT · Bearish continuation | 70 | 0.59 / 1.54 | reward:risk to T1 0.59 < 1.0 (measured move (base height 86.10 projected from 1,086.90) is too close) |
+| HINDUNILVR | LONG · Support bounce | 69 | 0.46 / 0.69 | entry 3.0 ATR above EMA20; extended, chasing |
+| TCS | LONG · Support bounce | 68 | 0.13 / 0.31 | reward:risk to T1 0.13 < 1.0 (resistance 2,570.43 (3 touches, last 2026-11-06) is too close) |
+
 ##### Idea 1: TITAN — LONG (Pullback to 50-day EMA), score 66/100
+
+> **Status at the 2026-11-25 close:** TRIGGERED — filled at 4,696.35 on 2026-11-25 (the session opened at 4,694.00, beyond the 4,686.80 trigger, so the fill is the open plus slippage, 9.55 worse than the planned entry). Last close 4,686.60 (-0.21% on the position); stop 4,493.40, T1 4,969.30, T2 5,165.10; 1 session(s) held, time stop in 15.  
+> Published on the 2026-11-23 close; thesis, levels and score shown exactly as published.
 
 Titan Company Ltd. · NSE · Consumer Durables · signal session 2026-11-23 · executable as eq delivery
 
-![TITAN daily chart](charts/TITAN_LONG_2026-11-23.png)
+![TITAN daily chart](charts/TITAN_LONG_2026-11-25.png)
+
+**Analyst view.** TITAN broke out of a two-month decline after its Q2 FY27 results (5 Nov): the 6 Nov session rose to 5,014 on 41 lakh shares (5.6x average), the heaviest volume in the chart window, and the stock reached 5,057 on 11 Nov. The retracement that followed was sharp — 18 Nov fell 5.3% on 1.4x volume, a genuine warning — but it stopped at 4,524 on 20 Nov, on the 3–4 Nov breakout shelf (4,562 close on 3 Nov), and the 23 Nov session closed back at 4,680 with a strong close near the high. The idea is that the post-results demand defends that shelf and the stock re-tests the November supply. What argues against it: the 23 Nov close was still marginally below the 50-day EMA (4,700) and the 20-day EMA (4,724), so this is a reclaim attempt, not a confirmed resumption; a close below 4,524 would mean the results breakout has failed. The buy-stop above 4,686.70 triggered on 25 Nov (opened 4,694) — the stock then traded down to 4,611 and closed 4,686.60, so follow-through is still unproven.
 
 **Why this stock?**
 - Titan Company Ltd. (Consumer Durables; member of NIFTY 50, NIFTY 100). Median 20-day traded value Rs 436 crore: liquid enough to enter and exit a swing position without moving the price.
@@ -408,7 +455,7 @@ Titan Company Ltd. · NSE · Consumer Durables · signal session 2026-11-23 · e
 
 | Item | Level | Basis |
 |---|---|---|
-| Current market price | 4,642.30 | Kotak Neo quotes API, 2026-11-25T11:39:49+05:30 |
+| Current market price | 4,686.60 | Kotak Neo quotes API, 2026-11-25T15:59:30+05:30 |
 | Entry (stop order) | 4,686.80 | beyond the 2026-11-23 bar, valid 3 sessions |
 | Stop-loss | 4,493.40 | invalidation 4,524.00 ± 0.25 ATR; 1.58 ATR |
 | Target 1 (book 50%) | 4,969.30 | resistance 4,981.50 (2 touches, last 2026-09-03) |
@@ -416,7 +463,7 @@ Titan Company Ltd. · NSE · Consumer Durables · signal session 2026-11-23 · e
 | Risk / reward per share | 193.40 / 282.50, 478.30 | R:R 1.46 / 2.47 |
 | Paper position | 51 | cash delivery (CNC); notional Rs 239,027, risk Rs 9,863 (0.99% of capital) |
 
-**Event risk:** no scheduled event found in 2026-11-23..2026-12-17 (Kotak scrip master, Yahoo Finance calendar)
+**Event risk:** no scheduled event found in 2026-11-23..2026-12-17 (company / exchange filings (manual web check), Kotak scrip master, Yahoo Finance calendar) No board meeting or record date is announced inside the holding window. Q2 FY27 results were on 5 Nov 2026; Q3 results are expected around February 2027 (last year's Q3 board meeting was on 10 Feb 2026). Sources: company / exchange filings via web search, 25 Nov 2026.
 
 | Score component | Points | Supporting | Against |
 |---|---|---|---|
@@ -430,9 +477,14 @@ Titan Company Ltd. · NSE · Consumer Durables · signal session 2026-11-23 · e
 
 ##### Idea 2: HCLTECH — LONG (Pullback to 50-day EMA), score 65/100
 
+> **Status at the 2026-11-25 close:** TRIGGERED — filled at 1,390.69 on 2026-11-25 (the session opened at 1,390.00, beyond the 1,378.00 trigger, so the fill is the open plus slippage, 12.69 worse than the planned entry). Last close 1,380.00 (-0.77% on the position); stop 1,300.30, T1 1,466.80, T2 1,537.50; 1 session(s) held, time stop in 15.  
+> Published on the 2026-11-23 close; thesis, levels and score shown exactly as published.
+
 HCL Technologies Ltd. · NSE · Information Technology · signal session 2026-11-23 · executable as eq delivery
 
-![HCLTECH daily chart](charts/HCLTECH_LONG_2026-11-23.png)
+![HCLTECH daily chart](charts/HCLTECH_LONG_2026-11-25.png)
+
+**Analyst view.** HCLTECH re-rated on its Q2 FY27 results (board meeting 12 Oct): on 13 Oct it opened at 1,245 (1.8% above the 1,223 prior close) and closed at 1,326, up 8.4%, on 217 lakh shares (7.8x average). The stock then built a 1,364–1,469 range for three weeks, which is the supply T1 is set beneath. The pullback from 1,469 bottomed at 1,309 on 19 Nov, just under the 50-day EMA (1,346) but well above the 1,223–1,245 gap zone, and the next two sessions closed higher on 1.2x and 1.4x average volume. As long as the gap holds, the October re-rating is intact. This is the weaker of the two ideas and should be read that way: the 200-day SMA (1,300) is still declining after a year-long downtrend, Nifty IT is lagging the index over 20 sessions, and the stock's 20-session return trails NIFTY by ~14 points (relative strength scored 3/15). The stop at 1,300.30 sits below the 19 Nov low and the 200-day SMA; a break there would put the stock back into its longer-term downtrend. The buy-stop above 1,378 triggered on 25 Nov at the 1,390 open; the stock closed 1,380.
 
 **Why this stock?**
 - HCL Technologies Ltd. (Information Technology; member of NIFTY 50, NIFTY 100). Median 20-day traded value Rs 416 crore: liquid enough to enter and exit a swing position without moving the price.
@@ -465,7 +517,7 @@ HCL Technologies Ltd. · NSE · Information Technology · signal session 2026-11
 
 | Item | Level | Basis |
 |---|---|---|
-| Current market price | 1,377.60 | Kotak Neo quotes API, 2026-11-25T11:39:49+05:30 |
+| Current market price | 1,380.00 | Kotak Neo quotes API, 2026-11-25T15:59:53+05:30 |
 | Entry (stop order) | 1,378.00 | beyond the 2026-11-23 bar, valid 3 sessions |
 | Stop-loss | 1,300.30 | invalidation 1,309.40 ± 0.25 ATR; 2.14 ATR |
 | Target 1 (book 50%) | 1,466.80 | resistance 1,470.47 (3 touches, last 2026-11-06) |
@@ -473,7 +525,7 @@ HCL Technologies Ltd. · NSE · Information Technology · signal session 2026-11
 | Risk / reward per share | 77.70 / 88.80, 159.50 | R:R 1.14 / 2.05 |
 | Paper position | 128 | cash delivery (CNC); notional Rs 176,384, risk Rs 9,946 (0.99% of capital) |
 
-**Event risk:** no scheduled event found in 2026-11-23..2026-12-17 (Kotak scrip master, Yahoo Finance calendar)
+**Event risk:** no scheduled event found in 2026-11-23..2026-12-17 (company / exchange filings (manual web check), Kotak scrip master, Yahoo Finance calendar) No board meeting or dividend record date is announced inside the holding window. Q2 FY27 results board meeting was 12 Oct 2026; Q3 results and the usual interim dividend are expected in mid-January 2027 (last year's Q3 meeting was 12 Jan 2026), after the time stop. Sources: company / exchange filings via web search, 25 Nov 2026.
 
 | Score component | Points | Supporting | Against |
 |---|---|---|---|
@@ -487,11 +539,19 @@ HCL Technologies Ltd. · NSE · Information Technology · signal session 2026-11
 
 #### 12. Research limitations
 
+- Both ideas are long and both depend on the broad market not pulling back sharply; they are not independent bets, even though their 60-day return correlation passed the 0.75 cap.
+- Both ideas triggered on a gap at the 25 Nov open, so their paper entries (4,696.35 and 1,390.69) are worse than the planned triggers; reward:risk measured from the actual fills is lower than the published figures (TITAN 1.34 / 2.31, HCLTECH 0.84 / 1.62 to T1 / T2); HCLTECH's T1 now offers less than 1R from the actual fill.
+- Event checks for the final ideas were made by web search of company and exchange filings because the NSE website refuses scripted access from this machine and the browser extension was not connected; the exchange announcement pages should be re-checked before acting.
+
 Technical analysis only (no valuation/news catalyst claimed); Yahoo earnings dates can be estimates; survivorship bias in the backtest universe; shorts backtested on cash prices as a futures proxy; daily bars hide the intraday path (worst case assumed); stops are not guaranteed through gaps; scores rank evidence, they are not probabilities.
 
 #### 13. Data sources and as-of timestamp
 
-Kotak Neo historical + quotes API (prices, 2026-11-23 close), Kotak scrip master (2026-11-25), NSE Indices constituent files, Yahoo Finance calendar, Kotak Neo pricing page / NSE charges / Budget 2026 STT for costs. All timestamps IST.
+Kotak Neo historical + quotes API (prices, 2026-11-25 close), Kotak scrip master (2026-11-25), NSE Indices constituent files, Yahoo Finance calendar, Kotak Neo pricing page / NSE charges / Budget 2026 STT for costs. All timestamps IST.
+
+**Data warnings for this run:**
+
+- INDIA VIX: the Kotak historical API had no 2026-11-25 bar (last 2026-11-23); that session's bar was taken from the Kotak quotes API at 15:58 IST (close 17.67) and used in memory only
 <!-- REPORT:END -->
 
 ---
@@ -596,7 +656,7 @@ execution/                 transaction_costs, position_manager (fill model), pap
 backtesting/               engine, walk_forward, performance, report
 reporting/                 chart_generator, pdf_report, export, readme_report
 database/                  SQLite schema and repository
-tests/                     160 tests + fixtures/ (recorded real Kotak responses, real candle snapshots)
+tests/                     165 tests + fixtures/ (recorded real Kotak responses, real candle snapshots)
 reports/  charts/          generated outputs
 ```
 
@@ -608,13 +668,28 @@ reports/  charts/          generated outputs
 .venv/bin/python -m pytest
 ```
 
-160 tests, fully offline. Fixtures are **real data**: Kotak API responses recorded on 2026-11-25 (stock and index history, a real
+165 tests, fully offline. Fixtures are **real data**: Kotak API responses recorded on 2026-11-25 (stock and index history, a real
 HTTP 429, a real 422, quotes, scrip paths — tokens redacted), daily candles for 10 stocks and 10 indices exported from the Kotak sync,
 and real scrip-master rows. Regenerate with `python tests/fixtures/make_fixtures.py [--record]`.
 
 Highlights: indicators match independent reference implementations; indicators, setup detector, regime and the whole signal
 generator give identical results on truncated vs full history (no look-ahead); every fill rule; hand-computed Indian costs;
 idempotent paper replay; walk-forward separation; the PDF contains every required section; the dashboard renders headlessly.
+
+---
+
+## Progress checklist
+
+- [x] Phase 1 — environment, official Kotak Neo docs, live API capability checks (historical endpoint exists; limits measured)
+- [x] Phase 2 — read-only Kotak client, instrument master, historical sync (249 stocks + 23 indices from 2023-01-02), validation, SQLite
+- [x] Phase 3 — indicators, support/resistance, patterns, regime, sectors, relative strength, setups, scoring, selection
+- [x] Phase 4 — risk sizing, short executability, Indian costs, paper broker, fill model, portfolio, idea carry-forward
+- [x] Phase 5 — backtest engine, walk-forward validation, metrics (result: no edge — reported as found)
+- [x] Phase 6 — charts, PDF, CSV, README report section, Streamlit dashboard
+- [x] Phase 7 — 165 tests green (recorded real data; headless dashboard render)
+- [x] Phase 8 — research on current data (25 Nov 2026 close): TITAN and HCLTECH (published 23 Nov) triggered and carried; 0 new ideas; shortfall of 1 reported
+- [x] Phase 9 — manual review of both ideas (`data/analyst_notes.json`), sourced event checks (`data/events_verified.json`), final PDF
+- [ ] Ongoing — rerun `run_research.py` after each close until a third idea qualifies under the unchanged rules
 
 ---
 

@@ -15,7 +15,7 @@ import json
 import logging
 import sys
 import uuid
-from datetime import date, datetime
+from datetime import datetime
 
 import pandas as pd
 
@@ -67,6 +67,42 @@ def live_quotes(client: KotakMarketDataClient | None, repo: Repository, rd: Rese
     repo.log_api_calls(client.calls)
     client.calls.clear()
     return out
+
+
+def complete_index_bars(client: KotakMarketDataClient | None, rd: ResearchData, d: pd.Timestamp) -> list[str]:
+    """Indices whose historical series lacks the as-of session (Kotak sometimes publishes an index's daily bar late, e.g.
+    INDIA VIX). If Kotak's quotes API has that session's OHLC, the bar is completed IN MEMORY from it (never written to
+    the candle store) and the substitution is reported; otherwise the staleness is reported."""
+    from research.indicators import add_indicators
+    warnings = []
+    stale = [n for n, df in rd.indices.items() if df.index[-1] < d]
+    if not stale:
+        return warnings
+    rows = {}
+    if client is not None:
+        try:
+            rows = {str(r.get("exchange_token")): r for r in client.quotes([f"nse_cm|{n}" for n in stale], "all")}
+        except KotakError as e:
+            log.warning("index quotes failed: %s", e)
+    for n in stale:
+        q = rows.get(n)
+        last = rd.indices[n].index[-1].date()
+        try:
+            qd = datetime.fromtimestamp(int(q["lstup_time"]), IST).date() if q else None
+            o = q["ohlc"] if q else {}
+            bar = {"open": float(o["open"]), "high": float(o["high"]), "low": float(o["low"]), "close": float(q["ltp"]), "volume": 0.0}
+        except (KeyError, TypeError, ValueError):
+            qd, bar = None, None
+        if qd == d.date() and bar and bar["low"] > 0:
+            raw = rd.indices[n][["open", "high", "low", "close", "volume"]]
+            raw = pd.concat([raw, pd.DataFrame([bar], index=pd.DatetimeIndex([d], name=raw.index.name))])
+            rd.indices[n] = add_indicators(raw)
+            warnings.append(f"{n}: the Kotak historical API had no {d.date()} bar (last {last}); that session's bar was taken from the "
+                            f"Kotak quotes API at {datetime.fromtimestamp(int(q['lstup_time']), IST).strftime('%H:%M')} IST "
+                            f"(close {bar['close']:,.2f}) and used in memory only")
+        else:
+            warnings.append(f"{n}: latest bar is {last}, behind the {d.date()} as-of session; regime/sector figures use {last}")
+    return warnings
 
 
 def chart_levels(rd: ResearchData, c: Candidate) -> dict:
@@ -164,7 +200,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--no-sync", action="store_true")
     ap.add_argument("--skip-backtest", action="store_true")
     ap.add_argument("--no-yahoo", action="store_true", help="skip the Yahoo Finance event calendar")
-    ap.add_argument("--paper", action="store_true", help="place the selected ideas as PAPER orders")
+    ap.add_argument("--no-paper", action="store_true",
+                    help="do not place new ideas as PAPER orders (then they cannot be carried forward on later runs)")
     ap.add_argument("--n", type=int, default=3)
     a = ap.parse_args(argv)
     for p in (PATHS.logs, PATHS.reports, PATHS.charts):
@@ -199,6 +236,9 @@ def main(argv: list[str] | None = None) -> int:
         stale = [s for s, df in rd.stocks.items() if df.index[-1] != d]
         print(f"[3] data validated: {len(rd.stocks)} stocks usable, {len(rd.excluded)} excluded, as-of {d.date()} "
               f"(final: {session_is_final(d.date(), now)}); stale symbols: {len(stale)}")
+        data_warnings = complete_index_bars(client, rd, d)
+        for w in data_warnings:
+            print(f"    data warning: {w}")
         regime = regime_at(rd, d)
         sectors = sector_table(rd.indices, t=d)
         print(f"[4] market regime: {regime.label} ({regime.score:+.2f})")
@@ -215,21 +255,72 @@ def main(argv: list[str] | None = None) -> int:
         bt_setup = pd.DataFrame(bt["by_setup_oos"]) if bt and bt.get("by_setup_oos") else None
 
         use_yahoo = not a.no_yahoo
+        # ideas published on earlier runs that are still pending or open keep their slot (thesis and levels unchanged)
+        from execution.idea_tracker import live_ideas, place_paper, published_ideas
+        from execution.paper_broker import PaperBroker
+        pb = PaperBroker(repo)
+        if not a.no_paper:
+            for idea in published_ideas(repo).values():  # every published idea gets its paper order (idempotent)
+                place_paper(pb, idea)
+        carried = [c for c in live_ideas(repo, d.date()) if c["symbol"] in rd.stocks]
+        print(f"[7] carried forward from earlier runs: {[(c['symbol'], c['status']['state']) for c in carried]}")
+        taken_syms = {c["symbol"] for c in carried}
+        taken_sectors = {rd.universe[c["symbol"]].industry for c in carried}
+        pre_notes = []
+        for c in cands:
+            if not c.passed:
+                continue
+            if c.symbol in taken_syms:
+                c.passed, c.reject_reason = False, "already carried as a live idea"
+            elif rd.universe[c.symbol].industry in taken_sectors:
+                c.passed, c.reject_reason = False, "sector already represented by a live idea"
+            else:
+                from research.stock_screener import return_correlation
+                hi = [(s_, return_correlation(rd, c.symbol, s_, d)) for s_ in taken_syms]
+                hi = [x for x in hi if x[1] > STRATEGY.max_pair_correlation]
+                if hi:
+                    c.passed, c.reject_reason = False, f"60-day correlation {hi[0][1]:.2f} with live idea {hi[0][0]}"
+            if not c.passed:
+                pre_notes.append((c.symbol, c.reject_reason))
+        slots = max(0, a.n - len(carried))
         chosen, notes = select(
-            rd, cands, d, a.n,
+            rd, cands, d, slots,
             event_check=lambda c: event_check(rd.universe[c.symbol], d.date(), STRATEGY.max_holding_days, use_yahoo, scrip_date),
-            sizer=lambda c: size(c.setup, rd.universe[c.symbol], d.date()))
-        print(f"[7] selected {len(chosen)} of {a.n} requested")
-        for s, why in notes:
-            print(f"    skipped {s}: {why}")
-        quotes = live_quotes(client, repo, rd, [c.symbol for c in chosen])
-        ideas = [build_idea(rd, c, regime, sectors, quotes, bt_setup, scrip_date) for c in chosen]
+            sizer=lambda c: size(c.setup, rd.universe[c.symbol], d.date())) if slots else ([], [])
+        notes = pre_notes + notes
+        print(f"    new ideas: {len(chosen)} of {slots} open slot(s)")
+        for s_, why in notes:
+            print(f"    skipped {s_}: {why}")
+        quotes = live_quotes(client, repo, rd, [c.symbol for c in chosen] + [c["symbol"] for c in carried])
+        new_ideas = [build_idea(rd, c, regime, sectors, quotes, bt_setup, scrip_date) for c in chosen]
+        for i in new_ideas:
+            i["origin"] = "new"
+            i["issued_on"] = i["signal_date"]
+            i["status_text"] = (f"New on the {d.date()} close: entry order {('buy' if i['side'] == 'LONG' else 'sell')}-stop "
+                                f"{i['entry']:,.2f}, valid {STRATEGY.entry_valid_days} sessions.")
+        for c in carried:  # refresh event risk over the original holding window (new filings may have appeared)
+            ec = event_check(rd.universe[c["symbol"]], datetime.fromisoformat(c["issued_on"]).date(), STRATEGY.max_holding_days,
+                             use_yahoo, scrip_date)
+            c["events"] = {"summary": ec.summary(), "events": ec.events, "all": ec.all_events, "sources_ok": ec.sources_ok,
+                           "sources_failed": ec.sources_failed, "window": [str(ec.window_start), str(ec.window_end)]}
+        for c in carried:  # refresh the market price; everything else stays as published
+            q = quotes.get(c["symbol"])
+            c["cmp"] = q["ltp"] if q else c["status"]["last_close"]
+            c["cmp_time"] = q["ts"] if q else f"{d.date()} close"
+            c["cmp_source"] = "Kotak Neo quotes API" if q else "Kotak Neo historical (last close)"
+        ideas = carried + new_ideas
 
         from reporting.chart_generator import candlestick_chart
         for idea in ideas:
-            idea["chart"] = str(candlestick_chart(rd.stocks[idea["symbol"]].loc[:d], idea))
+            idea["chart"] = str(candlestick_chart(rd.stocks[idea["symbol"]].loc[:d], idea, out=PATHS.charts / f"{idea['symbol']}_{idea['side']}_{d.date()}.png"))
         print(f"[8] charts: {[i['chart'] for i in ideas]}")
 
+        if not a.no_paper:
+            for i in new_ideas:
+                oid = place_paper(pb, i)
+                if oid:
+                    print(f"    PAPER order {oid}: {i['side']} {i['sizing']['qty']} {i['symbol']} stop-entry {i['entry']}")
+            pb.update()
         # persist
         repo.save_screen(run_id, [c.row() for c in cands])
         repo.save_ideas(run_id, ideas)
@@ -244,7 +335,9 @@ def main(argv: list[str] | None = None) -> int:
                          "filters": UNIVERSE.__dict__},
             "screen": {"candidates": len(cands), "passed": sum(c.passed for c in cands),
                        "top": [c.row() for c in cands[:25]], "selection_notes": notes},
-            "ideas": ideas, "shortfall": max(0, a.n - len(ideas)), "scrip_master_date": scrip_date,
+            "data_warnings": data_warnings,
+            "ideas": ideas, "n_carried": len(carried), "n_new": len(new_ideas),
+            "shortfall": max(0, a.n - len(ideas)), "scrip_master_date": scrip_date,
             "strategy": STRATEGY.__dict__, "risk": RISK.__dict__,
         }
         json_dump(context, PATHS.reports / "research_context.json")
@@ -255,28 +348,11 @@ def main(argv: list[str] | None = None) -> int:
         from reporting.readme_report import update_readme
         if update_readme():
             print("    README report section updated")
-        if a.paper:
-            from execution.paper_broker import PaperBroker
-            from execution.paper_orders import DuplicatePaperOrder, PaperOrder, idea_key
-            pb = PaperBroker(repo)
-            for i in ideas:
-                sz = i["sizing"]
-                try:
-                    oid = pb.place(PaperOrder(
-                        idea_key=idea_key(i["symbol"], i["side"], i["setup"], i["signal_date"]), symbol=i["symbol"],
-                        side=i["side"], instrument=sz["instrument"], qty=sz["qty"], lot=sz["lot_size"],
-                        trigger_price=i["entry"], stop_loss=i["stop"], target1=i["t1"], target2=i["t2"],
-                        created_on=date.fromisoformat(i["signal_date"]), valid_sessions=STRATEGY.entry_valid_days,
-                        max_hold=STRATEGY.max_holding_days, notes=i["setup"]))
-                    print(f"    PAPER order {oid} {i['side']} {sz['qty']} {i['symbol']} stop-entry {i['entry']}")
-                except DuplicatePaperOrder as e:
-                    print(f"    {e}")
-            pb.update()
         repo.finish_run(run_id, status="DONE", as_of=str(d.date()), regime=regime.label, n_universe=len(rd.stocks),
                         n_candidates=len(cands), n_selected=len(ideas),
                         notes=f"shortfall {max(0, a.n - len(ideas))}" if len(ideas) < a.n else "")
         if len(ideas) < a.n:
-            print(f"NOTE: only {len(ideas)} idea(s) met every criterion; the shortfall is reported, not filled.")
+            print(f"NOTE: {len(ideas)} idea(s) ({len(carried)} carried, {len(new_ideas)} new); the shortfall is reported, not filled.")
         return 0
     except Exception as e:
         repo.finish_run(run_id, status="FAILED", notes=f"{type(e).__name__}: {e}")

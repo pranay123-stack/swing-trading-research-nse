@@ -52,7 +52,9 @@ def candlestick_chart(df: pd.DataFrame, idea: dict, out: Path | None = None, ses
             return
         lines.append((float(y), color, label, ls, lw, x0))
 
-    trade_x0 = max(0, n - 30)  # trade levels drawn over the most recent sessions and the projection area
+    trade_x0 = max(0, n - 30)
+    if idea.get("signal_date") and pd.Timestamp(idea["signal_date"]) in x.index:
+        trade_x0 = min(trade_x0, int(x.index.get_indexer([pd.Timestamp(idea["signal_date"])])[0]))  # trade levels drawn over the most recent sessions and the projection area
     for lv in idea.get("chart_levels", {}).get("supports", [])[:2]:
         hline(round(lv, 2), COL["sup"], "Support", ls="--", lw=0.9)
     for lv in idea.get("chart_levels", {}).get("resistances", [])[:2]:
@@ -65,9 +67,19 @@ def candlestick_chart(df: pd.DataFrame, idea: dict, out: Path | None = None, ses
     zone = [n - 0.5, right]
     ax.fill_between(zone, min(idea["entry"], idea["stop"]), max(idea["entry"], idea["stop"]), color=COL["stop"], alpha=0.10, lw=0)
     ax.fill_between(zone, min(idea["entry"], idea["t2"]), max(idea["entry"], idea["t2"]), color=COL["t1"], alpha=0.10, lw=0)
-    ax.annotate("signal bar", (pos[-1], h[-1] if side == "LONG" else l[-1]),
-                xytext=(-28, 16 if side == "LONG" else -20), textcoords="offset points", ha="center", fontsize=7.5, color="#555",
+    sig_d = pd.Timestamp(idea.get("signal_date", x.index[-1]))
+    si = int(x.index.get_indexer([sig_d])[0]) if sig_d in x.index else n - 1
+    ax.annotate(f"signal {x.index[si].strftime('%d %b')}", (pos[si], h[si] if side == "LONG" else l[si]),
+                xytext=(-30, 18 if side == "LONG" else -22), textcoords="offset points", ha="center", fontsize=7.5, color="#555",
                 arrowprops={"arrowstyle": "-", "color": "#999", "lw": 0.6})
+    st = idea.get("status") or {}
+    if st.get("entry_date") and pd.Timestamp(st["entry_date"]) in x.index:
+        ei = int(x.index.get_indexer([pd.Timestamp(st["entry_date"])])[0])
+        ax.scatter([pos[ei]], [st["entry_fill"]], marker="^" if side == "LONG" else "v", s=70, color=COL["entry"], zorder=5,
+                   edgecolor="white", linewidth=0.8)
+        ax.annotate(f"paper fill {st['entry_fill']:,.2f}", (pos[ei], st["entry_fill"]), xytext=(-40, -20 if side == "LONG" else 18),
+                    textcoords="offset points", fontsize=7.5, color=COL["entry"],
+                    arrowprops={"arrowstyle": "-", "color": COL["entry"], "lw": 0.6})
     lo = min(l.min(), idea["stop"], idea["t2"]) if side == "SHORT" else min(l.min(), idea["stop"])
     hi = max(h.max(), idea["t2"]) if side == "LONG" else max(h.max(), idea["stop"])
     pad = (hi - lo) * 0.04

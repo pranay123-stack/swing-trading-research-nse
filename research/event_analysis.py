@@ -83,7 +83,7 @@ def check(eq: Equity, start: date, sessions: int = 15, use_yahoo: bool = True, s
     # 1. manually verified exchange events
     ver = [e for e in load_verified() if e.get("symbol") == eq.symbol]
     if ver:
-        ec.sources_ok.append("exchange filings (manually verified)")
+        ec.sources_ok.append("company / exchange filings (manual web check)")
         ec.all_events += ver
     # 2. scrip master record date
     if eq.last_record_date:

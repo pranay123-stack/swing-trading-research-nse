@@ -1,0 +1,14 @@
+[
+ {"symbol": "TITAN", "event": "Q2 FY27 results (past; explains the 6 Nov volume spike)", "event_date": "2026-11-05",
+  "source": "Kotak Neo news, 'Titan Q2 Results FY27: Date...' (kotakneo.com/news/stocks/titan-q2-results-fy27-date-share-price-q1-performance/), via web search",
+  "retrieved_at": "2026-11-25T17:37:52+05:30"},
+ {"symbol": "TITAN", "event": "No board meeting / record date announced inside the holding window; Q3 results expected ~Feb 2027 (Q3 FY26 board meeting was 10 Feb 2026)", "event_date": "",
+  "source": "titancompany.in/investors/notice-of-board-meeting; scanx.trade report of the 10 Feb 2026 Q3FY26 meeting; web search",
+  "retrieved_at": "2026-11-25T17:37:52+05:30"},
+ {"symbol": "HCLTECH", "event": "Q2 FY27 results board meeting (past; explains the 13 Oct gap-up on ~220 lakh shares)", "event_date": "2026-10-12",
+  "source": "Angel One, 'HCLTech share price in focus: board to consider Q2FY27 results on October 12, 2026', via web search",
+  "retrieved_at": "2026-11-25T17:37:52+05:30"},
+ {"symbol": "HCLTECH", "event": "No board meeting / dividend record date announced inside the holding window; Q3 results + interim dividend expected mid-Jan 2027 (Q3 FY26 meeting was 12 Jan 2026)", "event_date": "",
+  "source": "hcltech.com/investor-relations/notice-of-meeting-board-of-directors; NSE filing INTEGRATED_FILING_INDAS_134525_12012026; web search",
+  "retrieved_at": "2026-11-25T17:37:52+05:30"}
+]
