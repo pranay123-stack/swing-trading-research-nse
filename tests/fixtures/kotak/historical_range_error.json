@@ -1,0 +1,10 @@
+{
+ "status_code": 422,
+ "body": {
+  "status": "ERROR",
+  "fault": {
+   "code": 422,
+   "message": "Date range exceeds maximum allowed for D interval. It must be 180 days or less."
+  }
+ }
+}

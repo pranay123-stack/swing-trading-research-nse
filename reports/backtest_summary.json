@@ -1,0 +1,451 @@
+{
+  "period": [
+    "2023-11-15",
+    "2026-10-27"
+  ],
+  "sessions": 731,
+  "signals": 5230,
+  "signals_regime_ok": 4156,
+  "fill_rate_pct": 84.07122232916265,
+  "isolated_all": {
+    "trades": 3494,
+    "win_rate": 43.4745,
+    "avg_win": 10618.5188,
+    "avg_loss": -10331.1975,
+    "profit_factor": 0.7905,
+    "expectancy": -1223.4072,
+    "expectancy_r": -0.1338,
+    "expectancy_r_se": 0.0203,
+    "expectancy_r_t": -6.5943,
+    "avg_holding": 8.259,
+    "median_holding": 8.0,
+    "total_net": -4274584.8884,
+    "total_costs": 3887430.3284,
+    "exit_reasons": {
+      "STOP": 1634,
+      "TIME": 817,
+      "T2": 392,
+      "BREAKEVEN": 386,
+      "STOP_GAP": 145,
+      "BREAKEVEN_GAP": 61,
+      "T2_GAP": 59
+    }
+  },
+  "isolated_by_setup": [
+    {
+      "setup": "Support bounce",
+      "trades": 830,
+      "win_rate": 43.494,
+      "profit_factor": 0.721,
+      "expectancy_r": -0.184,
+      "expectancy_r_t": -4.412,
+      "median_holding": 8.0
+    },
+    {
+      "setup": "Pullback to 20-day EMA",
+      "trades": 565,
+      "win_rate": 40.177,
+      "profit_factor": 0.663,
+      "expectancy_r": -0.241,
+      "expectancy_r_t": -4.843,
+      "median_holding": 8.0
+    },
+    {
+      "setup": "Resistance rejection",
+      "trades": 529,
+      "win_rate": 45.369,
+      "profit_factor": 0.97,
+      "expectancy_r": 0.005,
+      "expectancy_r_t": 0.087,
+      "median_holding": 7.0
+    },
+    {
+      "setup": "Pullback to 50-day EMA",
+      "trades": 522,
+      "win_rate": 43.87,
+      "profit_factor": 0.731,
+      "expectancy_r": -0.168,
+      "expectancy_r_t": -3.305,
+      "median_holding": 9.0
+    },
+    {
+      "setup": "Breakout",
+      "trades": 478,
+      "win_rate": 42.05,
+      "profit_factor": 0.733,
+      "expectancy_r": -0.179,
+      "expectancy_r_t": -3.246,
+      "median_holding": 8.0
+    },
+    {
+      "setup": "Bearish trend continuation (EMA rejection)",
+      "trades": 474,
+      "win_rate": 48.312,
+      "profit_factor": 1.039,
+      "expectancy_r": 0.038,
+      "expectancy_r_t": 0.694,
+      "median_holding": 7.0
+    },
+    {
+      "setup": "Breakdown",
+      "trades": 84,
+      "win_rate": 29.762,
+      "profit_factor": 0.555,
+      "expectancy_r": -0.329,
+      "expectancy_r_t": -2.523,
+      "median_holding": 7.0
+    },
+    {
+      "setup": "Failed breakout",
+      "trades": 12,
+      "win_rate": 58.333,
+      "profit_factor": 1.12,
+      "expectancy_r": 0.152,
+      "expectancy_r_t": 0.478,
+      "median_holding": 9.5
+    }
+  ],
+  "isolated_by_side": [
+    {
+      "side": "LONG",
+      "trades": 2395,
+      "win_rate": 42.505,
+      "profit_factor": 0.712,
+      "expectancy_r": -0.193,
+      "expectancy_r_t": -7.944,
+      "median_holding": 8.0
+    },
+    {
+      "side": "SHORT",
+      "trades": 1099,
+      "win_rate": 45.587,
+      "profit_factor": 0.958,
+      "expectancy_r": -0.005,
+      "expectancy_r_t": -0.135,
+      "median_holding": 7.0
+    }
+  ],
+  "isolated_by_regime": [
+    {
+      "regime": "Strong Bullish",
+      "trades": 1582,
+      "win_rate": 41.972,
+      "profit_factor": 0.705,
+      "expectancy_r": -0.203,
+      "expectancy_r_t": -6.781,
+      "median_holding": 8.0
+    },
+    {
+      "regime": "Bullish",
+      "trades": 592,
+      "win_rate": 44.088,
+      "profit_factor": 0.826,
+      "expectancy_r": -0.1,
+      "expectancy_r_t": -2.032,
+      "median_holding": 9.0
+    },
+    {
+      "regime": "Sideways",
+      "trades": 559,
+      "win_rate": 48.658,
+      "profit_factor": 0.985,
+      "expectancy_r": -0.035,
+      "expectancy_r_t": -0.68,
+      "median_holding": 8.0
+    },
+    {
+      "regime": "Strong Bearish",
+      "trades": 405,
+      "win_rate": 39.259,
+      "profit_factor": 0.712,
+      "expectancy_r": -0.173,
+      "expectancy_r_t": -3.019,
+      "median_holding": 6.0
+    },
+    {
+      "regime": "Bearish",
+      "trades": 356,
+      "win_rate": 45.787,
+      "profit_factor": 0.919,
+      "expectancy_r": 0.006,
+      "expectancy_r_t": 0.095,
+      "median_holding": 7.0
+    }
+  ],
+  "walk_forward": {
+    "summary": {
+      "trades": 2017,
+      "win_rate": 41.299,
+      "avg_win": 10748.7753,
+      "avg_loss": -10313.3269,
+      "profit_factor": 0.7333,
+      "expectancy": -1614.898,
+      "expectancy_r": -0.1778,
+      "expectancy_r_se": 0.0264,
+      "expectancy_r_t": -6.7309,
+      "avg_holding": 8.1438,
+      "median_holding": 8.0,
+      "total_net": -3257249.2382,
+      "total_costs": 1897013.8682,
+      "exit_reasons": {
+        "STOP": 950,
+        "TIME": 461,
+        "BREAKEVEN": 218,
+        "T2": 189,
+        "STOP_GAP": 115,
+        "BREAKEVEN_GAP": 42,
+        "T2_GAP": 42
+      },
+      "folds": 8,
+      "thresholds": [
+        50.0,
+        50.0,
+        55.0,
+        55.0,
+        60.0,
+        55.0,
+        50.0,
+        50.0
+      ],
+      "positive_folds": 1
+    },
+    "folds": [
+      {
+        "train": "2023-11-15..2024-11-14",
+        "test": "2024-11-18..2025-02-13",
+        "threshold": 50.0,
+        "train_trades": 1236,
+        "train_exp_r": -0.113,
+        "test_trades": 266,
+        "test_exp_r": 0.291
+      },
+      {
+        "train": "2024-02-15..2025-02-13",
+        "test": "2025-02-14..2025-05-22",
+        "threshold": 50.0,
+        "train_trades": 1177,
+        "train_exp_r": -0.138,
+        "test_trades": 268,
+        "test_exp_r": -0.358
+      },
+      {
+        "train": "2024-05-21..2025-05-22",
+        "test": "2025-05-23..2025-08-20",
+        "threshold": 55.0,
+        "train_trades": 1081,
+        "train_exp_r": -0.122,
+        "test_trades": 261,
+        "test_exp_r": -0.325
+      },
+      {
+        "train": "2024-08-21..2025-08-20",
+        "test": "2025-08-21..2025-11-21",
+        "threshold": 55.0,
+        "train_trades": 1003,
+        "train_exp_r": -0.182,
+        "test_trades": 248,
+        "test_exp_r": -0.235
+      },
+      {
+        "train": "2024-11-21..2025-11-21",
+        "test": "2025-11-24..2026-02-20",
+        "threshold": 60.0,
+        "train_trades": 930,
+        "train_exp_r": -0.136,
+        "test_trades": 256,
+        "test_exp_r": -0.104
+      },
+      {
+        "train": "2025-02-18..2026-02-20",
+        "test": "2026-02-23..2026-05-29",
+        "threshold": 55.0,
+        "train_trades": 970,
+        "train_exp_r": -0.291,
+        "test_trades": 316,
+        "test_exp_r": -0.155
+      },
+      {
+        "train": "2025-05-27..2026-05-29",
+        "test": "2026-06-01..2026-08-27",
+        "threshold": 50.0,
+        "train_trades": 1082,
+        "train_exp_r": -0.229,
+        "test_trades": 288,
+        "test_exp_r": -0.374
+      },
+      {
+        "train": "2025-08-25..2026-08-27",
+        "test": "2026-08-28..2026-11-23",
+        "threshold": 50.0,
+        "train_trades": 1113,
+        "train_exp_r": -0.191,
+        "test_trades": 114,
+        "test_exp_r": -0.118
+      }
+    ]
+  },
+  "by_setup_oos": [
+    {
+      "setup": "Bearish trend continuation (EMA rejection)",
+      "trades": 445,
+      "win_rate": 48.09,
+      "profit_factor": 1.034,
+      "expectancy_r": 0.036,
+      "expectancy_r_t": 0.644,
+      "median_holding": 7.0
+    },
+    {
+      "setup": "Support bounce",
+      "trades": 418,
+      "win_rate": 38.278,
+      "profit_factor": 0.536,
+      "expectancy_r": -0.331,
+      "expectancy_r_t": -5.897,
+      "median_holding": 8.0
+    },
+    {
+      "setup": "Resistance rejection",
+      "trades": 402,
+      "win_rate": 43.035,
+      "profit_factor": 0.865,
+      "expectancy_r": -0.055,
+      "expectancy_r_t": -0.9,
+      "median_holding": 7.0
+    },
+    {
+      "setup": "Pullback to 20-day EMA",
+      "trades": 231,
+      "win_rate": 35.931,
+      "profit_factor": 0.557,
+      "expectancy_r": -0.336,
+      "expectancy_r_t": -4.344,
+      "median_holding": 8.0
+    },
+    {
+      "setup": "Pullback to 50-day EMA",
+      "trades": 221,
+      "win_rate": 42.534,
+      "profit_factor": 0.697,
+      "expectancy_r": -0.223,
+      "expectancy_r_t": -2.89,
+      "median_holding": 9.0
+    },
+    {
+      "setup": "Breakout",
+      "trades": 210,
+      "win_rate": 38.571,
+      "profit_factor": 0.605,
+      "expectancy_r": -0.281,
+      "expectancy_r_t": -3.495,
+      "median_holding": 9.0
+    },
+    {
+      "setup": "Breakdown",
+      "trades": 81,
+      "win_rate": 29.63,
+      "profit_factor": 0.547,
+      "expectancy_r": -0.336,
+      "expectancy_r_t": -2.541,
+      "median_holding": 6.0
+    },
+    {
+      "setup": "Failed breakout",
+      "trades": 9,
+      "win_rate": 44.444,
+      "profit_factor": 0.638,
+      "expectancy_r": -0.151,
+      "expectancy_r_t": -0.414,
+      "median_holding": 7.0
+    }
+  ],
+  "portfolio_oos": {
+    "total_return_pct": -30.0037,
+    "cagr_pct": -16.4555,
+    "max_drawdown_pct": -41.2764,
+    "sharpe": -0.9899,
+    "sessions": 500,
+    "trades": 242,
+    "win_rate": 42.9752,
+    "avg_win": 8714.412,
+    "avg_loss": -8741.5672,
+    "profit_factor": 0.7513,
+    "expectancy": -1239.8241,
+    "expectancy_r": -0.1519,
+    "expectancy_r_se": 0.0739,
+    "expectancy_r_t": -2.0556,
+    "avg_holding": 8.2355,
+    "median_holding": 8.0,
+    "total_net": -300037.433,
+    "total_costs": 186304.923,
+    "exit_reasons": {
+      "STOP": 108,
+      "TIME": 67,
+      "BREAKEVEN": 28,
+      "T2": 16,
+      "STOP_GAP": 15,
+      "BREAKEVEN_GAP": 5,
+      "T2_GAP": 3
+    }
+  },
+  "portfolio_fixed60_full": {
+    "total_return_pct": -37.3262,
+    "cagr_pct": -14.5286,
+    "max_drawdown_pct": -48.1561,
+    "sharpe": -0.9176,
+    "sessions": 750,
+    "trades": 358,
+    "win_rate": 44.1341,
+    "avg_win": 9045.6528,
+    "avg_loss": -9012.3752,
+    "profit_factor": 0.7929,
+    "expectancy": -1042.631,
+    "expectancy_r": -0.1285,
+    "expectancy_r_se": 0.0627,
+    "expectancy_r_t": -2.0475,
+    "avg_holding": 8.4358,
+    "median_holding": 8.0,
+    "total_net": -373261.8917,
+    "total_costs": 347721.7517,
+    "exit_reasons": {
+      "STOP": 163,
+      "TIME": 101,
+      "BREAKEVEN": 37,
+      "T2": 28,
+      "STOP_GAP": 17,
+      "BREAKEVEN_GAP": 7,
+      "T2_GAP": 5
+    }
+  },
+  "assumptions": [
+    "Universe = current NIFTY 100 + NIFTY MIDCAP 150 constituents (survivorship bias: delisted / demoted stocks are absent; Kotak serves no history for delisted instruments).",
+    "Entries are stop orders working from the session after the signal; gap-aware fills; 5 bps slippage per fill; Indian delivery / futures costs per fill.",
+    "Same-bar stop and target -> stop assumed first; no target credited on the entry bar.",
+    "Shorts simulated on the cash price as a proxy for stock futures (basis, rollover and margin not modelled), F&O stocks only in live selection.",
+    "Only the score threshold is selected in-sample (grid 50-70), per walk-forward fold; all other rules fixed a priori.",
+    "Trades still open at the data end are excluded from metrics."
+  ],
+  "runtime_s": 559.7,
+  "cost_decomposition": [
+    {
+      "group": "All",
+      "trades": 3494,
+      "gross_r": -0.0057,
+      "cost_r": 0.1281,
+      "net_r": -0.1338
+    },
+    {
+      "group": "LONG",
+      "trades": 2395,
+      "gross_r": -0.0136,
+      "cost_r": 0.1793,
+      "net_r": -0.1929
+    },
+    {
+      "group": "SHORT",
+      "trades": 1099,
+      "gross_r": 0.0115,
+      "cost_r": 0.0165,
+      "net_r": -0.0049
+    }
+  ]
+}

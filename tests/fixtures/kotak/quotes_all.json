@@ -1,0 +1,167 @@
+{
+ "status_code": 200,
+ "body": [
+  {
+   "exchange_token": "2885",
+   "display_symbol": "RELIANCE-EQ",
+   "exchange": "nse_cm",
+   "lstup_time": "1795584137",
+   "ltp": "1385.7000",
+   "last_traded_quantity": "1",
+   "total_buy": "490256",
+   "total_sell": "1512261",
+   "last_volume": "8185646",
+   "avg_cost": "1376.5700",
+   "open_int": "0",
+   "change": "34.7000",
+   "per_change": "2.5700",
+   "low_price_range": "1215.9000",
+   "high_price_range": "1486.1000",
+   "year_high": "1611.8",
+   "year_low": "1152.2",
+   "ohlc": {
+    "open": "1359.8000",
+    "high": "1394.2000",
+    "low": "1357.0000",
+    "close": "1351.0000"
+   },
+   "depth": {
+    "buy": [
+     {
+      "price": "1385.2000",
+      "quantity": "111",
+      "orders": "2"
+     },
+     {
+      "price": "1385.1000",
+      "quantity": "730",
+      "orders": "7"
+     },
+     {
+      "price": "1385.0000",
+      "quantity": "2091",
+      "orders": "12"
+     },
+     {
+      "price": "1384.9000",
+      "quantity": "833",
+      "orders": "4"
+     },
+     {
+      "price": "1384.8000",
+      "quantity": "1170",
+      "orders": "11"
+     }
+    ],
+    "sell": [
+     {
+      "price": "1385.7000",
+      "quantity": "829",
+      "orders": "14"
+     },
+     {
+      "price": "1385.8000",
+      "quantity": "1501",
+      "orders": "16"
+     },
+     {
+      "price": "1385.9000",
+      "quantity": "927",
+      "orders": "14"
+     },
+     {
+      "price": "1386.0000",
+      "quantity": "7750",
+      "orders": "31"
+     },
+     {
+      "price": "1386.1000",
+      "quantity": "733",
+      "orders": "14"
+     }
+    ]
+   }
+  },
+  {
+   "exchange_token": "Nifty 50",
+   "display_symbol": "Nifty 50-IN",
+   "exchange": "nse_cm",
+   "lstup_time": "1795584137",
+   "ltp": "25852.1000",
+   "last_traded_quantity": "0",
+   "total_buy": "0",
+   "total_sell": "0",
+   "last_volume": "0",
+   "avg_cost": "0",
+   "open_int": "0",
+   "change": "502.4500",
+   "per_change": "1.9800",
+   "low_price_range": "0",
+   "high_price_range": "0",
+   "year_high": "0",
+   "year_low": "0",
+   "ohlc": {
+    "open": "25658.3500",
+    "high": "25854.9000",
+    "low": "25619.0000",
+    "close": "25349.6500"
+   },
+   "depth": {
+    "buy": [
+     {
+      "price": "0",
+      "quantity": "0",
+      "orders": "0"
+     },
+     {
+      "price": "0",
+      "quantity": "0",
+      "orders": "0"
+     },
+     {
+      "price": "0",
+      "quantity": "0",
+      "orders": "0"
+     },
+     {
+      "price": "0",
+      "quantity": "0",
+      "orders": "0"
+     },
+     {
+      "price": "0",
+      "quantity": "0",
+      "orders": "0"
+     }
+    ],
+    "sell": [
+     {
+      "price": "0",
+      "quantity": "0",
+      "orders": "0"
+     },
+     {
+      "price": "0",
+      "quantity": "0",
+      "orders": "0"
+     },
+     {
+      "price": "0",
+      "quantity": "0",
+      "orders": "0"
+     },
+     {
+      "price": "0",
+      "quantity": "0",
+      "orders": "0"
+     },
+     {
+      "price": "0",
+      "quantity": "0",
+      "orders": "0"
+     }
+    ]
+   }
+  }
+ ]
+}

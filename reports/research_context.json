@@ -1,0 +1,1817 @@
+{
+  "run_id": "20261125-113940-ebf2",
+  "as_of": "2026-11-23",
+  "generated_at": "2026-11-25T11:39:47+05:30",
+  "regime": {
+    "label": "Strong Bullish",
+    "score": 0.6666666666666666,
+    "components": [
+      [
+        "NIFTY 50 short-term trend",
+        2,
+        "close 25,350 > EMA20 24,699; EMA20 > EMA50 24,049"
+      ],
+      [
+        "NIFTY 50 primary trend",
+        2,
+        "close above SMA200 23,996; EMA50 20-day slope +3.61%"
+      ],
+      [
+        "NIFTY BANK trend",
+        2,
+        "close above EMA50; EMA20 > EMA50"
+      ],
+      [
+        "NIFTY MIDCAP 100 trend",
+        2,
+        "close above EMA50; EMA20 > EMA50"
+      ],
+      [
+        "Breadth (EMA50)",
+        1,
+        "59% of universe stocks close above their 50-day EMA"
+      ],
+      [
+        "Breadth (SMA200)",
+        0,
+        "52% of universe stocks close above their 200-day SMA"
+      ],
+      [
+        "INDIA VIX",
+        -1,
+        "VIX 17.70, +12.9% over 5 sessions"
+      ]
+    ],
+    "breadth_ema50": 59.036144578313255,
+    "breadth_sma200": 52.41935483870967,
+    "vix": 17.7
+  },
+  "index_quotes": {
+    "Nifty 50": {
+      "symbol": "Nifty 50",
+      "ts": "2026-11-25T11:39:49+05:30",
+      "ltp": 25917.85,
+      "open": 25658.35,
+      "high": 25942.7,
+      "low": 25619.0,
+      "prev_close": 25349.65,
+      "change_pct": 2.24,
+      "raw": {
+        "exchange_token": "Nifty 50",
+        "display_symbol": "Nifty 50-IN",
+        "exchange": "nse_cm",
+        "lstup_time": "1795586989",
+        "ltp": "25917.8500",
+        "last_traded_quantity": "0",
+        "total_buy": "0",
+        "total_sell": "0",
+        "last_volume": "0",
+        "avg_cost": "0",
+        "open_int": "0",
+        "change": "568.2000",
+        "per_change": "2.2400",
+        "low_price_range": "0",
+        "high_price_range": "0",
+        "year_high": "0",
+        "year_low": "0",
+        "ohlc": {
+          "open": "25658.3500",
+          "high": "25942.7000",
+          "low": "25619.0000",
+          "close": "25349.6500"
+        },
+        "depth": {
+          "buy": [
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            }
+          ],
+          "sell": [
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            }
+          ]
+        }
+      }
+    },
+    "Nifty Bank": {
+      "symbol": "Nifty Bank",
+      "ts": "2026-11-25T11:39:49+05:30",
+      "ltp": 63964.55,
+      "open": 63408.6,
+      "high": 64039.6,
+      "low": 63301.25,
+      "prev_close": 62585.35,
+      "change_pct": 2.2,
+      "raw": {
+        "exchange_token": "Nifty Bank",
+        "display_symbol": "Nifty Bank-IN",
+        "exchange": "nse_cm",
+        "lstup_time": "1795586989",
+        "ltp": "63964.5500",
+        "last_traded_quantity": "0",
+        "total_buy": "0",
+        "total_sell": "0",
+        "last_volume": "0",
+        "avg_cost": "0",
+        "open_int": "0",
+        "change": "1379.2000",
+        "per_change": "2.2000",
+        "low_price_range": "0",
+        "high_price_range": "0",
+        "year_high": "0",
+        "year_low": "0",
+        "ohlc": {
+          "open": "63408.6000",
+          "high": "64039.6000",
+          "low": "63301.2500",
+          "close": "62585.3500"
+        },
+        "depth": {
+          "buy": [
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            }
+          ],
+          "sell": [
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            }
+          ]
+        }
+      }
+    },
+    "INDIA VIX": {
+      "symbol": "INDIA VIX",
+      "ts": "2026-11-25T11:39:45+05:30",
+      "ltp": 17.75,
+      "open": 17.7,
+      "high": 18.24,
+      "low": 16.43,
+      "prev_close": 17.7,
+      "change_pct": 0.28,
+      "raw": {
+        "exchange_token": "INDIA VIX",
+        "display_symbol": "India VIX-IN",
+        "exchange": "nse_cm",
+        "lstup_time": "1795586985",
+        "ltp": "17.7500",
+        "last_traded_quantity": "0",
+        "total_buy": "0",
+        "total_sell": "0",
+        "last_volume": "0",
+        "avg_cost": "0",
+        "open_int": "0",
+        "change": "0.0500",
+        "per_change": "0.2800",
+        "low_price_range": "0",
+        "high_price_range": "0",
+        "year_high": "0",
+        "year_low": "0",
+        "ohlc": {
+          "open": "17.7000",
+          "high": "18.2400",
+          "low": "16.4300",
+          "close": "17.7000"
+        },
+        "depth": {
+          "buy": [
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            }
+          ],
+          "sell": [
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            },
+            {
+              "price": "0",
+              "quantity": "0",
+              "orders": "0"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "sectors": [
+    {
+      "index": "Nifty Realty",
+      "close": 941.85,
+      "ret5": 3.625261304874039,
+      "ret20": 19.26681018108143,
+      "ret60": 3.482942372136466,
+      "rs_nifty20": 7.050850225237126,
+      "rs_nifty60": -1.178548886904307,
+      "rs_momentum": 6.34066599936971,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 68.61292937764814,
+      "quadrant": "Improving"
+    },
+    {
+      "index": "Nifty PSU Bank",
+      "close": 9559.65,
+      "ret5": 2.733388499027445,
+      "ret20": 18.110776149645403,
+      "ret60": 10.267604821500665,
+      "rs_nifty20": 6.013223531216871,
+      "rs_nifty60": 5.300491747131919,
+      "rs_momentum": 0.8104346055280987,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 69.23502342662323,
+      "quadrant": "Leading"
+    },
+    {
+      "index": "Nifty Fin Service",
+      "close": 28153.5,
+      "ret5": 0.4929431669724371,
+      "ret20": 15.126756589318479,
+      "ret60": 6.69559532720021,
+      "rs_nifty20": 3.3348435985538716,
+      "rs_nifty60": 1.8893869454619905,
+      "rs_momentum": 2.341028452431315,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 66.39264335287812,
+      "quadrant": "Leading"
+    },
+    {
+      "index": "Nifty Bank",
+      "close": 62585.35,
+      "ret5": 1.6393589050261559,
+      "ret20": 15.117066145269064,
+      "ret60": 8.309602613191425,
+      "rs_nifty20": 3.3261457028612273,
+      "rs_nifty60": 3.4306896805077924,
+      "rs_momentum": 2.4135692939596165,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 67.1988126892446,
+      "quadrant": "Leading"
+    },
+    {
+      "index": "NIFTY CONSR DURBL",
+      "close": 38715.25,
+      "ret5": 0.33457600719428715,
+      "ret20": 14.369252402433009,
+      "ret60": -4.284841922053784,
+      "rs_nifty20": 2.654927139547847,
+      "rs_nifty60": -8.596425672094,
+      "rs_momentum": 5.232478141098484,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 60.954233741605194,
+      "quadrant": "Improving"
+    },
+    {
+      "index": "Nifty Pvt Bank",
+      "close": 30659.85,
+      "ret5": 1.3788383039296859,
+      "ret20": 14.294527926994283,
+      "ret60": 10.554270477069604,
+      "rs_nifty20": 2.587856354170026,
+      "rs_nifty60": 5.574244265355999,
+      "rs_momentum": 2.6694801110509814,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 66.1959192685274,
+      "quadrant": "Leading"
+    },
+    {
+      "index": "Nifty Auto",
+      "close": 28490.7,
+      "ret5": 3.338562399688083,
+      "ret20": 14.096292662415033,
+      "ret60": -1.7567150514738783,
+      "rs_nifty20": 2.409925431178017,
+      "rs_nifty60": -6.182180771226308,
+      "rs_momentum": 4.491908378139941,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 63.571552245188734,
+      "quadrant": "Improving"
+    },
+    {
+      "index": "Nifty Consumption",
+      "close": 12262.25,
+      "ret5": 1.3689740548002982,
+      "ret20": 13.492588701877462,
+      "ret60": 2.4569275246068667,
+      "rs_nifty20": 1.8680561369312176,
+      "rs_nifty60": -2.1583458831265223,
+      "rs_momentum": 1.722619915123036,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 69.56596661548595,
+      "quadrant": "Improving"
+    },
+    {
+      "index": "Nifty FMCG",
+      "close": 48312.55,
+      "ret5": 1.2669756288764544,
+      "ret20": 12.877811720589015,
+      "ret60": 2.242507867242005,
+      "rs_nifty20": 1.3162479813688233,
+      "rs_nifty60": -2.3631067954300145,
+      "rs_momentum": 3.454926995618557,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 68.70776497598554,
+      "quadrant": "Improving"
+    },
+    {
+      "index": "Nifty Media",
+      "close": 1749.2,
+      "ret5": -0.799637044178525,
+      "ret20": 12.264938065592723,
+      "ret60": 8.578522656734954,
+      "rs_nifty20": 0.7661482029946987,
+      "rs_nifty60": 3.6874959553120146,
+      "rs_momentum": 2.8590525758498186,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 61.36743074209502,
+      "quadrant": "Leading"
+    },
+    {
+      "index": "Nifty 50",
+      "close": 25349.65,
+      "ret5": 0.2315043631949676,
+      "ret20": 11.411361918323571,
+      "ret60": 4.71708440478773,
+      "rs_nifty20": 0.0,
+      "rs_nifty60": 0.0,
+      "rs_momentum": 0.0,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 66.33959037471243,
+      "quadrant": "Leading"
+    },
+    {
+      "index": "NIFTY HEALTHCARE",
+      "close": 17432.2,
+      "ret5": 1.5406839588296695,
+      "ret20": 11.325972143281371,
+      "ret60": 5.0977744149662385,
+      "rs_nifty20": -0.07664368657911425,
+      "rs_nifty60": 0.3635414529943759,
+      "rs_momentum": -0.2561269477253214,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 71.65201164819861,
+      "quadrant": "Weakening"
+    },
+    {
+      "index": "Nifty Infra",
+      "close": 9530.35,
+      "ret5": -0.10324731137711929,
+      "ret20": 10.03498360504318,
+      "ret60": 2.599891267487364,
+      "rs_nifty20": -1.235402107631911,
+      "rs_nifty60": -2.0218220831247358,
+      "rs_momentum": -1.2983339800509697,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 63.66205525460107,
+      "quadrant": "Lagging"
+    },
+    {
+      "index": "Nifty 500",
+      "close": 23748.15,
+      "ret5": -0.017892928714569045,
+      "ret20": 9.900618962225959,
+      "ret60": 0.8020221399708038,
+      "rs_nifty20": -1.356004387779719,
+      "rs_nifty60": -3.738704421604322,
+      "rs_momentum": 1.0333128097359978,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 63.01595241294745,
+      "quadrant": "Improving"
+    },
+    {
+      "index": "Nifty Pharma",
+      "close": 28288.85,
+      "ret5": 0.6777966005181657,
+      "ret20": 9.756248969417136,
+      "ret60": 6.24401437676283,
+      "rs_nifty20": -1.485587215170936,
+      "rs_nifty60": 1.4581479045698842,
+      "rs_momentum": -1.2284724696315918,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 63.65446213566752,
+      "quadrant": "Weakening"
+    },
+    {
+      "index": "NIFTY MIDCAP 100",
+      "close": 61403.2,
+      "ret5": -0.2812765929804395,
+      "ret20": 8.74482426406258,
+      "ret60": -4.208969566872378,
+      "rs_nifty20": -2.3934162623519883,
+      "rs_nifty60": -8.523971062024726,
+      "rs_momentum": 2.3007913665428426,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 57.65494646793391,
+      "quadrant": "Improving"
+    },
+    {
+      "index": "Nifty Serv Sector",
+      "close": 32707.65,
+      "ret5": -0.2022948103600486,
+      "ret20": 8.438126813095725,
+      "ret60": 5.852055379716115,
+      "rs_nifty20": -2.6687000805245886,
+      "rs_nifty60": 1.0838450873413397,
+      "rs_momentum": -1.0694729915655454,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 66.0938897658447,
+      "quadrant": "Weakening"
+    },
+    {
+      "index": "NIFTY OIL AND GAS",
+      "close": 11306.9,
+      "ret5": -0.4683057367452781,
+      "ret20": 7.470333002247886,
+      "ret60": 1.4130868615659153,
+      "rs_nifty20": -3.5373671483927116,
+      "rs_nifty60": -3.155165713409369,
+      "rs_momentum": -2.020750904817381,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 58.33675951895343,
+      "quadrant": "Lagging"
+    },
+    {
+      "index": "Nifty Commodities",
+      "close": 9392.25,
+      "ret5": -2.05080874761443,
+      "ret20": 5.14458114567824,
+      "ret60": -4.9044969701265035,
+      "rs_nifty20": -5.6249027610303814,
+      "rs_nifty60": -9.188167747033194,
+      "rs_momentum": -2.06603594110224,
+      "above_ema50": false,
+      "above_sma200": false,
+      "rsi": 47.6907766342268,
+      "quadrant": "Lagging"
+    },
+    {
+      "index": "Nifty Energy",
+      "close": 36655.1,
+      "ret5": -1.6673976872921825,
+      "ret20": 4.662022965335,
+      "ret60": -3.7921359373646712,
+      "rs_nifty20": -6.058034689439085,
+      "rs_nifty60": -8.125914114701382,
+      "rs_momentum": -0.32274499099123055,
+      "above_ema50": false,
+      "above_sma200": false,
+      "rsi": 48.48753776111679,
+      "quadrant": "Lagging"
+    },
+    {
+      "index": "Nifty Metal",
+      "close": 11819.25,
+      "ret5": -5.129892802818992,
+      "ret20": 0.7475568019571277,
+      "ret60": -12.719599459447483,
+      "rs_nifty20": -9.57155978775679,
+      "rs_nifty60": -16.651231232559027,
+      "rs_momentum": -3.5430719972976767,
+      "above_ema50": false,
+      "above_sma200": false,
+      "rsi": 36.57702533892758,
+      "quadrant": "Lagging"
+    },
+    {
+      "index": "Nifty IT",
+      "close": 31850.8,
+      "ret5": -0.28255176332649956,
+      "ret20": -1.3083671980181566,
+      "ret60": 5.052797187228419,
+      "rs_nifty20": -11.416904790793826,
+      "rs_nifty60": 0.32059026886479547,
+      "rs_momentum": -2.9844497974954365,
+      "above_ema50": true,
+      "above_sma200": true,
+      "rsi": 53.49365509297841,
+      "quadrant": "Weakening"
+    }
+  ],
+  "universe": {
+    "constituents": 249,
+    "matched": 249,
+    "missing_from_master": [],
+    "usable": 249,
+    "excluded": {},
+    "liquidity_fail": {
+      "BAJAJHLDNG": "liquidity: median traded value Rs 33 cr < 40 cr",
+      "BOSCHLTD": "liquidity: median volume 28,630 < 100,000",
+      "VAML": "liquidity: only 112 bars of history",
+      "IDEA": "liquidity: price 11.91 < 50.0",
+      "AIAENG": "liquidity: median traded value Rs 31 cr < 40 cr",
+      "ABBOTINDIA": "liquidity: median traded value Rs 22 cr < 40 cr",
+      "ATGL": "liquidity: median traded value Rs 22 cr < 40 cr",
+      "ALKEM": "liquidity: median volume 96,527 < 100,000",
+      "ANTHEM": "liquidity: median traded value Rs 31 cr < 40 cr",
+      "AIIL": "liquidity: median traded value Rs 5 cr < 40 cr",
+      "BAJAJHFL": "liquidity: median traded value Rs 20 cr < 40 cr",
+      "BALKRISIND": "liquidity: median traded value Rs 26 cr < 40 cr",
+      "BERGEPAINT": "liquidity: median traded value Rs 13 cr < 40 cr",
+      "BHARTIHEXA": "liquidity: median traded value Rs 26 cr < 40 cr",
+      "CRISIL": "liquidity: median traded value Rs 11 cr < 40 cr",
+      "CONCOR": "liquidity: median traded value Rs 36 cr < 40 cr",
+      "COROMANDEL": "liquidity: median traded value Rs 38 cr < 40 cr",
+      "DALBHARAT": "liquidity: median traded value Rs 28 cr < 40 cr",
+      "ENDURANCE": "liquidity: median traded value Rs 21 cr < 40 cr",
+      "ESCORTS": "liquidity: median traded value Rs 23 cr < 40 cr",
+      "FACT": "liquidity: median traded value Rs 6 cr < 40 cr",
+      "GICRE": "liquidity: median traded value Rs 26 cr < 40 cr",
+      "GLAXO": "liquidity: median traded value Rs 21 cr < 40 cr",
+      "MEDANTA": "liquidity: median traded value Rs 30 cr < 40 cr",
+      "GODREJIND": "liquidity: median traded value Rs 17 cr < 40 cr",
+      "HDBFS": "liquidity: median traded value Rs 19 cr < 40 cr",
+      "HEXT": "liquidity: median traded value Rs 19 cr < 40 cr",
+      "IOB": "liquidity: price 31.22 < 50.0",
+      "IRCTC": "liquidity: median traded value Rs 32 cr < 40 cr",
+      "JKCEMENT": "liquidity: median traded value Rs 23 cr < 40 cr",
+      "JSL": "liquidity: median traded value Rs 34 cr < 40 cr",
+      "LINDEINDIA": "liquidity: median traded value Rs 16 cr < 40 cr",
+      "LLOYDSME": "liquidity: median traded value Rs 39 cr < 40 cr",
+      "MRF": "liquidity: median traded value Rs 39 cr < 40 cr",
+      "NLCINDIA": "liquidity: median traded value Rs 37 cr < 40 cr",
+      "NTPCGREEN": "liquidity: median traded value Rs 14 cr < 40 cr",
+      "NH": "liquidity: median traded value Rs 20 cr < 40 cr",
+      "PAGEIND": "liquidity: median volume 21,867 < 100,000",
+      "SCHAEFFLER": "liquidity: median traded value Rs 25 cr < 40 cr",
+      "SHREECEM": "liquidity: median traded value Rs 37 cr < 40 cr",
+      "SUNDARMFIN": "liquidity: median traded value Rs 24 cr < 40 cr",
+      "SUZLON": "liquidity: price 35.86 < 50.0",
+      "TATAINVEST": "liquidity: median traded value Rs 13 cr < 40 cr",
+      "TORNTPOWER": "liquidity: median traded value Rs 26 cr < 40 cr",
+      "UBL": "liquidity: median traded value Rs 18 cr < 40 cr",
+      "YESBANK": "liquidity: price 17.73 < 50.0"
+    },
+    "filters": {
+      "constituent_files": [
+        "ind_nifty50list.csv",
+        "ind_niftynext50list.csv",
+        "ind_nifty100list.csv",
+        "ind_niftymidcap150list.csv"
+      ],
+      "min_price": 50.0,
+      "min_median_traded_value_cr": 40.0,
+      "min_median_volume": 100000,
+      "min_history_bars": 220,
+      "max_zero_volume_days_60": 0
+    }
+  },
+  "screen": {
+    "candidates": 67,
+    "passed": 2,
+    "top": [
+      {
+        "symbol": "LUPIN",
+        "side": "SHORT",
+        "setup": "Bearish trend continuation (EMA rejection)",
+        "score": 85,
+        "passed": false,
+        "reject_reason": "short ideas are not taken in a Strong Bullish market",
+        "close": 1975.6,
+        "entry": 1972.9,
+        "stop": 2027.1,
+        "t1": 1896.9,
+        "t2": 1796.3,
+        "rr_t1": 1.4,
+        "rr_t2": 3.26,
+        "stop_atr": 1.35,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 17,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 15,
+        "pts_Relative strength": 15,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 8,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "KALYANKJIL",
+        "side": "LONG",
+        "setup": "Pullback to 20-day EMA",
+        "score": 81,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.90 < 1.0 (52-week high 729.35 is too close)",
+        "close": 652.9,
+        "entry": 670.95,
+        "stop": 609.25,
+        "t1": 726.25,
+        "t2": 807.1,
+        "rr_t1": 0.9,
+        "rr_t2": 2.21,
+        "stop_atr": 1.99,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 20,
+        "pts_Momentum": 10,
+        "pts_Volume confirmation": 15,
+        "pts_Relative strength": 15,
+        "pts_Price action": 7,
+        "pts_Risk/reward": 4,
+        "pts_Market regime alignment": 10
+      },
+      {
+        "symbol": "PRESTIGE",
+        "side": "LONG",
+        "setup": "Support bounce",
+        "score": 79,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.41 < 1.0 (resistance 1,741.50 (swing high dominating 50 sessions each side, last 2026-07-10) is too close)",
+        "close": 1687.0,
+        "entry": 1697.1,
+        "stop": 1600.1,
+        "t1": 1736.4,
+        "t2": 1922.2,
+        "rr_t1": 0.41,
+        "rr_t2": 2.32,
+        "stop_atr": 1.9,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 20,
+        "pts_Momentum": 4,
+        "pts_Volume confirmation": 15,
+        "pts_Relative strength": 11,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 4,
+        "pts_Market regime alignment": 10
+      },
+      {
+        "symbol": "BDL",
+        "side": "SHORT",
+        "setup": "Bearish trend continuation (EMA rejection)",
+        "score": 78,
+        "passed": false,
+        "reject_reason": "short ideas are not taken in a Strong Bullish market",
+        "close": 1020.0,
+        "entry": 1019.95,
+        "stop": 1062.2,
+        "t1": 977.5,
+        "t2": 865.1,
+        "rr_t1": 1.0,
+        "rr_t2": 3.67,
+        "stop_atr": 1.2,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 17,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 8,
+        "pts_Relative strength": 15,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 8,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "LTTS",
+        "side": "LONG",
+        "setup": "Pullback to 20-day EMA",
+        "score": 78,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.36 < 1.0 (resistance 4,347.40 (swing high dominating 15 sessions each side, last 2026-11-02) is too close)",
+        "close": 4222.6,
+        "entry": 4238.5,
+        "stop": 3969.2,
+        "t1": 4334.7,
+        "t2": 4444.7,
+        "rr_t1": 0.36,
+        "rr_t2": 0.77,
+        "stop_atr": 2.12,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 20,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 15,
+        "pts_Relative strength": 7,
+        "pts_Price action": 11,
+        "pts_Risk/reward": 0,
+        "pts_Market regime alignment": 10
+      },
+      {
+        "symbol": "PERSISTENT",
+        "side": "LONG",
+        "setup": "Breakout",
+        "score": 75,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.82 < 1.0 (resistance 6,558.70 (5 touches, last 2026-02-03) is too close)",
+        "close": 6282.5,
+        "entry": 6340.0,
+        "stop": 6093.5,
+        "t1": 6541.5,
+        "t2": 6813.0,
+        "rr_t1": 0.82,
+        "rr_t2": 1.92,
+        "stop_atr": 1.45,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 17,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 15,
+        "pts_Relative strength": 7,
+        "pts_Price action": 8,
+        "pts_Risk/reward": 3,
+        "pts_Market regime alignment": 10
+      },
+      {
+        "symbol": "TIINDIA",
+        "side": "SHORT",
+        "setup": "Bearish trend continuation (EMA rejection)",
+        "score": 75,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.31 < 1.0 (support 2,164.90 (swing low dominating 50 sessions each side, last 2026-01-27) is too close)",
+        "close": 2210.0,
+        "entry": 2202.0,
+        "stop": 2296.6,
+        "t1": 2172.5,
+        "t2": 2012.8,
+        "rr_t1": 0.31,
+        "rr_t2": 2.0,
+        "stop_atr": 1.24,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 20,
+        "pts_Momentum": 11,
+        "pts_Volume confirmation": 11,
+        "pts_Relative strength": 12,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 6,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "TATASTEEL",
+        "side": "SHORT",
+        "setup": "Breakdown",
+        "score": 74,
+        "passed": false,
+        "reject_reason": "entry 3.2 ATR below EMA20; extended, chasing",
+        "close": 163.0,
+        "entry": 160.49,
+        "stop": 175.33,
+        "t1": 154.34,
+        "t2": 135.06,
+        "rr_t1": 0.41,
+        "rr_t2": 1.71,
+        "stop_atr": 2.57,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 20,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 15,
+        "pts_Relative strength": 15,
+        "pts_Price action": 8,
+        "pts_Risk/reward": 1,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "PFC",
+        "side": "SHORT",
+        "setup": "Bearish trend continuation (EMA rejection)",
+        "score": 74,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.73 < 1.0 (support 311.83 (2 touches, last 2026-10-26) is too close)",
+        "close": 324.25,
+        "entry": 324.05,
+        "stop": 339.6,
+        "t1": 312.65,
+        "t2": 287.5,
+        "rr_t1": 0.73,
+        "rr_t2": 2.35,
+        "stop_atr": 1.87,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 17,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 11,
+        "pts_Relative strength": 12,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 4,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "JSWINFRA",
+        "side": "LONG",
+        "setup": "Breakout",
+        "score": 74,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.91 < 1.0 (resistance 375.50 (swing high dominating 42 sessions each side, last 2026-09-22) is too close)",
+        "close": 353.55,
+        "entry": 355.15,
+        "stop": 334.0,
+        "t1": 374.4,
+        "t2": 388.2,
+        "rr_t1": 0.91,
+        "rr_t2": 1.56,
+        "stop_atr": 1.95,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 17,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 15,
+        "pts_Relative strength": 3,
+        "pts_Price action": 11,
+        "pts_Risk/reward": 3,
+        "pts_Market regime alignment": 10
+      },
+      {
+        "symbol": "COLPAL",
+        "side": "SHORT",
+        "setup": "Bearish trend continuation (EMA rejection)",
+        "score": 73,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.65 < 1.0 (support 1,716.10 (swing low dominating 11 sessions each side, last 2026-10-01) is too close)",
+        "close": 1755.5,
+        "entry": 1754.9,
+        "stop": 1807.6,
+        "t1": 1720.5,
+        "t2": 1568.3,
+        "rr_t1": 0.65,
+        "rr_t2": 3.54,
+        "stop_atr": 1.19,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 14,
+        "pts_Momentum": 11,
+        "pts_Volume confirmation": 11,
+        "pts_Relative strength": 12,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 10,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "LAURUSLABS",
+        "side": "LONG",
+        "setup": "Pullback to 20-day EMA",
+        "score": 73,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.46 < 1.0 (52-week high 2,488.00 is too close)",
+        "close": 2370.7,
+        "entry": 2382.4,
+        "stop": 2170.1,
+        "t1": 2480.1,
+        "t2": 2731.3,
+        "rr_t1": 0.46,
+        "rr_t2": 1.64,
+        "stop_atr": 2.68,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 20,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 4,
+        "pts_Relative strength": 12,
+        "pts_Price action": 11,
+        "pts_Risk/reward": 1,
+        "pts_Market regime alignment": 10
+      },
+      {
+        "symbol": "PREMIERENE",
+        "side": "SHORT",
+        "setup": "Resistance rejection",
+        "score": 73,
+        "passed": false,
+        "reject_reason": "short ideas are not taken in a Strong Bullish market",
+        "close": 809.85,
+        "entry": 806.4,
+        "stop": 849.2,
+        "t1": 736.7,
+        "t2": 666.35,
+        "rr_t1": 1.63,
+        "rr_t2": 3.27,
+        "stop_atr": 1.47,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 20,
+        "pts_Momentum": 9,
+        "pts_Volume confirmation": 4,
+        "pts_Relative strength": 15,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 10,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "OIL",
+        "side": "SHORT",
+        "setup": "Bearish continuation",
+        "score": 72,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.50 < 1.0 (support 405.23 (2 touches, last 2026-06-25) is too close)",
+        "close": 422.5,
+        "entry": 421.35,
+        "stop": 451.25,
+        "t1": 406.3,
+        "t2": 396.65,
+        "rr_t1": 0.5,
+        "rr_t2": 0.83,
+        "stop_atr": 2.84,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 20,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 11,
+        "pts_Relative strength": 15,
+        "pts_Price action": 11,
+        "pts_Risk/reward": 0,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "SAIL",
+        "side": "SHORT",
+        "setup": "Resistance rejection",
+        "score": 72,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.98 < 1.0 (support 152.43 (2 touches, last 2026-02-24) is too close)",
+        "close": 162.0,
+        "entry": 160.11,
+        "stop": 167.34,
+        "t1": 153.01,
+        "t2": 143.26,
+        "rr_t1": 0.98,
+        "rr_t2": 2.33,
+        "stop_atr": 1.24,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 17,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 4,
+        "pts_Relative strength": 15,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 6,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "OIL",
+        "side": "SHORT",
+        "setup": "Resistance rejection",
+        "score": 70,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.75 < 1.0 (support 405.23 (2 touches, last 2026-06-25) is too close)",
+        "close": 422.5,
+        "entry": 421.35,
+        "stop": 441.35,
+        "t1": 406.3,
+        "t2": 396.65,
+        "rr_t1": 0.75,
+        "rr_t2": 1.24,
+        "stop_atr": 1.9,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 20,
+        "pts_Momentum": 9,
+        "pts_Volume confirmation": 11,
+        "pts_Relative strength": 15,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 0,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "RVNL",
+        "side": "SHORT",
+        "setup": "Bearish trend continuation (EMA rejection)",
+        "score": 70,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.39 < 1.0 (support 177.86 (swing low dominating 20 sessions each side, last 2026-10-26) is too close)",
+        "close": 185.1,
+        "entry": 185.09,
+        "stop": 201.76,
+        "t1": 178.6,
+        "t2": 152.37,
+        "rr_t1": 0.39,
+        "rr_t2": 1.96,
+        "stop_atr": 2.24,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 17,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 11,
+        "pts_Relative strength": 15,
+        "pts_Price action": 11,
+        "pts_Risk/reward": 1,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "HINDALCO",
+        "side": "SHORT",
+        "setup": "Resistance rejection",
+        "score": 69,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.10 < 1.0 (support 890.37 (3 touches, last 2026-03-02) is too close)",
+        "close": 900.45,
+        "entry": 897.7,
+        "stop": 946.5,
+        "t1": 893.05,
+        "t2": 869.05,
+        "rr_t1": 0.1,
+        "rr_t2": 0.59,
+        "stop_atr": 1.81,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 20,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 7,
+        "pts_Relative strength": 12,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 0,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "TATASTEEL",
+        "side": "SHORT",
+        "setup": "Resistance rejection",
+        "score": 67,
+        "passed": false,
+        "reject_reason": "stop 3.9 ATR away (> 3.5); invalidation too far for a swing trade",
+        "close": 163.0,
+        "entry": 160.49,
+        "stop": 182.94,
+        "t1": 146.62,
+        "t2": 135.06,
+        "rr_t1": 0.62,
+        "rr_t2": 1.13,
+        "stop_atr": 3.89,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 20,
+        "pts_Momentum": 9,
+        "pts_Volume confirmation": 15,
+        "pts_Relative strength": 15,
+        "pts_Price action": 8,
+        "pts_Risk/reward": 0,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "TECHM",
+        "side": "LONG",
+        "setup": "Pullback to 50-day EMA",
+        "score": 67,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.32 < 1.0 (resistance 1,853.00 (3 touches, last 2026-11-06) is too close)",
+        "close": 1777.5,
+        "entry": 1808.8,
+        "stop": 1686.9,
+        "t1": 1848.4,
+        "t2": 2012.3,
+        "rr_t1": 0.32,
+        "rr_t2": 1.67,
+        "stop_atr": 2.64,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 20,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 11,
+        "pts_Relative strength": 7,
+        "pts_Price action": 3,
+        "pts_Risk/reward": 1,
+        "pts_Market regime alignment": 10
+      },
+      {
+        "symbol": "BHARATFORG",
+        "side": "SHORT",
+        "setup": "Bearish trend continuation (EMA rejection)",
+        "score": 67,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.50 < 1.0 (support 1,680.25 (2 touches, last 2026-11-06) is too close)",
+        "close": 1722.0,
+        "entry": 1717.9,
+        "stop": 1782.7,
+        "t1": 1685.3,
+        "t2": 1627.2,
+        "rr_t1": 0.5,
+        "rr_t2": 1.4,
+        "stop_atr": 1.27,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 17,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 8,
+        "pts_Relative strength": 12,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 0,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "NTPC",
+        "side": "SHORT",
+        "setup": "Resistance rejection",
+        "score": 66,
+        "passed": false,
+        "reject_reason": "short ideas are not taken in a Strong Bullish market",
+        "close": 315.45,
+        "entry": 314.8,
+        "stop": 329.7,
+        "t1": 292.75,
+        "t2": 284.4,
+        "rr_t1": 1.48,
+        "rr_t2": 2.04,
+        "stop_atr": 2.16,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 17,
+        "pts_Momentum": 11,
+        "pts_Volume confirmation": 11,
+        "pts_Relative strength": 12,
+        "pts_Price action": 11,
+        "pts_Risk/reward": 4,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "TITAN",
+        "side": "LONG",
+        "setup": "Pullback to 50-day EMA",
+        "score": 66,
+        "passed": true,
+        "reject_reason": "",
+        "close": 4680.0,
+        "entry": 4686.8,
+        "stop": 4493.4,
+        "t1": 4969.3,
+        "t2": 5165.1,
+        "rr_t1": 1.46,
+        "rr_t2": 2.47,
+        "stop_atr": 1.58,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 14,
+        "pts_Momentum": 10,
+        "pts_Volume confirmation": 8,
+        "pts_Relative strength": 3,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 6,
+        "pts_Market regime alignment": 10
+      },
+      {
+        "symbol": "SOLARINDS",
+        "side": "SHORT",
+        "setup": "Resistance rejection",
+        "score": 66,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.35 < 1.0 (support 17,787.33 (3 touches, last 2026-11-06) is too close)",
+        "close": 18178.0,
+        "entry": 18177.0,
+        "stop": 19126.0,
+        "t1": 17843.0,
+        "t2": 16986.0,
+        "rr_t1": 0.35,
+        "rr_t2": 1.26,
+        "stop_atr": 1.69,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 10,
+        "pts_Momentum": 15,
+        "pts_Volume confirmation": 11,
+        "pts_Relative strength": 15,
+        "pts_Price action": 15,
+        "pts_Risk/reward": 0,
+        "pts_Market regime alignment": 0
+      },
+      {
+        "symbol": "COFORGE",
+        "side": "LONG",
+        "setup": "Support bounce",
+        "score": 66,
+        "passed": false,
+        "reject_reason": "reward:risk to T1 0.08 < 1.0 (52-week high 2,177.80 is too close)",
+        "close": 2142.3,
+        "entry": 2155.1,
+        "stop": 1966.2,
+        "t1": 2170.9,
+        "t2": 2457.6,
+        "rr_t1": 0.08,
+        "rr_t2": 1.6,
+        "stop_atr": 2.75,
+        "regime": "Strong Bullish",
+        "pts_Trend structure": 17,
+        "pts_Momentum": 9,
+        "pts_Volume confirmation": 15,
+        "pts_Relative strength": 7,
+        "pts_Price action": 7,
+        "pts_Risk/reward": 1,
+        "pts_Market regime alignment": 10
+      }
+    ],
+    "selection_notes": []
+  },
+  "ideas": [
+    {
+      "symbol": "TITAN",
+      "company": "Titan Company Ltd.",
+      "exchange": "NSE",
+      "industry": "Consumer Durables",
+      "indices": [
+        "NIFTY 50",
+        "NIFTY 100"
+      ],
+      "sector_index": "NIFTY CONSR DURBL",
+      "side": "LONG",
+      "setup": "Pullback to 50-day EMA",
+      "signal_date": "2026-11-23",
+      "cmp": 4642.3,
+      "cmp_time": "2026-11-25T11:39:49+05:30",
+      "cmp_source": "Kotak Neo quotes API",
+      "last_close": 4680.0,
+      "entry": 4686.8,
+      "stop": 4493.4,
+      "t1": 4969.3,
+      "t2": 5165.1,
+      "t1_basis": "resistance 4,981.50 (2 touches, last 2026-09-03)",
+      "t2_basis": "resistance 5,177.35 (2 touches, last 2026-08-27)",
+      "invalidation": 4524.0,
+      "risk_per_share": 193.4,
+      "reward_t1": 282.5,
+      "reward_t2": 478.3,
+      "rr_t1": 1.46,
+      "rr_t2": 2.47,
+      "atr": 122.14,
+      "stop_atr": 1.58,
+      "score": 66,
+      "confidence": "Moderate",
+      "scorecard": {
+        "total": 66,
+        "components": [
+          {
+            "name": "Trend structure",
+            "points": 14,
+            "max": 20,
+            "pros": [
+              "+4 EMA20 above EMA50",
+              "+4 EMA50 above SMA200 (primary trend aligned)",
+              "+3 price above SMA200",
+              "+3 EMA50 sloping up (+1.1% / 20d)"
+            ],
+            "cons": [
+              "0/3 close on the wrong side of EMA20",
+              "0/3 ADX 31 / DI not confirming a directional trend"
+            ]
+          },
+          {
+            "name": "Momentum",
+            "points": 10,
+            "max": 15,
+            "pros": [
+              "+6 RSI 48 in the reset zone for this setup",
+              "+4 20-day ROC +8.3% (trend intact through the pullback)"
+            ],
+            "cons": [
+              "0/5 MACD histogram moving against the trade (-15.61 -> -20.26)"
+            ]
+          },
+          {
+            "name": "Volume confirmation",
+            "points": 8,
+            "max": 15,
+            "pros": [
+              "+4 OBV above its 20-day EMA (accumulation)",
+              "+4 up/down volume ratio 2.11 over 20 sessions"
+            ],
+            "cons": [
+              "0/7 signal-day volume only 0.9x average (want >= 1.1)"
+            ]
+          },
+          {
+            "name": "Relative strength",
+            "points": 3,
+            "max": 15,
+            "pros": [
+              "+3 sector outperforming NIFTY (+2.7%, 20d)"
+            ],
+            "cons": [
+              "0/5 -2.8% vs NIFTY 50 over 20 sessions",
+              "0/4 -12.4% vs NIFTY 50 over 60 sessions",
+              "0/3 -5.3% vs its sector index (20d)"
+            ]
+          },
+          {
+            "name": "Price action",
+            "points": 15,
+            "max": 15,
+            "pros": [
+              "+4 closed in the upper part of the day's range (0.91)",
+              "+4 confirming candle: strong_bull_close",
+              "+4 tight structure: stop 1.6 ATR from entry",
+              "+3 entry -0.3 ATR from EMA20 (not extended)"
+            ],
+            "cons": []
+          },
+          {
+            "name": "Risk/reward",
+            "points": 6,
+            "max": 10,
+            "pros": [
+              "6/10 reward:risk 1.46 to T1, 2.47 to T2"
+            ],
+            "cons": []
+          },
+          {
+            "name": "Market regime alignment",
+            "points": 10,
+            "max": 10,
+            "pros": [
+              "10/10 long idea in a Strong Bullish market"
+            ],
+            "cons": []
+          }
+        ]
+      },
+      "sizing": {
+        "instrument": "EQ_DELIVERY",
+        "executable": true,
+        "qty": 51,
+        "lots": 0,
+        "lot_size": 1,
+        "contract": "TITAN-EQ",
+        "contract_expiry": null,
+        "notional": 239026.80000000002,
+        "capital_pct": 23.90268,
+        "risk_amount": 9863.400000000027,
+        "risk_pct_capital": 0.9863400000000028,
+        "round_trip_cost_pct": 0.7026124625831078,
+        "note": "cash delivery (CNC)"
+      },
+      "holding": "5-15 sessions (1-3 weeks); time stop at 15; in the backtest this setup's trades lasted a median 9 sessions",
+      "regime": "Strong Bullish",
+      "events": {
+        "summary": "no scheduled event found in 2026-11-23..2026-12-17 (Kotak scrip master, Yahoo Finance calendar)",
+        "events": [],
+        "all": [
+          {
+            "event": "Record date (scrip master)",
+            "event_date": "2026-07-08",
+            "source": "Kotak Neo scrip master nse_cm 2026-11-25",
+            "retrieved_at": "2026-11-25"
+          },
+          {
+            "event": "Earnings (Yahoo date, may be an estimate)",
+            "event_date": "2027-02-10",
+            "source": "Yahoo Finance calendar TITAN.NS",
+            "retrieved_at": "2026-11-25T11:39:49+05:30"
+          },
+          {
+            "event": "Ex-dividend",
+            "event_date": "2026-07-09",
+            "source": "Yahoo Finance calendar TITAN.NS",
+            "retrieved_at": "2026-11-25T11:39:49+05:30"
+          }
+        ],
+        "sources_ok": [
+          "Kotak scrip master",
+          "Yahoo Finance calendar"
+        ],
+        "sources_failed": [],
+        "window": [
+          "2026-11-23",
+          "2026-12-17"
+        ]
+      },
+      "why_stock": [
+        "Titan Company Ltd. (Consumer Durables; member of NIFTY 50, NIFTY 100). Median 20-day traded value Rs 436 crore: liquid enough to enter and exit a swing position without moving the price.",
+        "Relative strength: +8.3% over 20 sessions vs NIFTY 50 +11.1% (-2.8% excess); -12.4% excess over 60 sessions; -5.3% vs its sector index (NIFTY CONSR DURBL).",
+        "Sector backdrop: NIFTY CONSR DURBL is +14.4% over 20 sessions (+2.7% vs NIFTY), rotation quadrant 'Improving'."
+      ],
+      "why_now": [
+        "pulled back 4.4 ATR from the 5,056.60 swing high into the rising 50-day EMA (low 4,524.00)",
+        "RSI cooled to 48; today's bar reversed up (strong_bull_close)",
+        "Trend: close 4,680.00 vs EMA20 4,723.48 / EMA50 4,700.20 / SMA200 4,500.74; ADX 31; RSI 48.",
+        "Market regime Strong Bullish (+0.67): supports a long position."
+      ],
+      "catalyst": [
+        "Technical catalyst: the pullback to 50-day ema on 2026-11-23 (volume 0.9x average).",
+        "Sector rotation: NIFTY CONSR DURBL leading the index over 20 sessions.",
+        "No company-specific news catalyst is claimed; scheduled events found are listed under event risk."
+      ],
+      "confirms": [
+        "A buy-stop trigger at 4,686.80 (above the signal bar's high); the order is valid for 3 sessions and is cancelled if 4,493.40 trades first.",
+        "Follow-through volume at or above the 20-day average (10.9 lakh shares) on the trigger day.",
+        "Holding above EMA50 4,700.20 on closing basis."
+      ],
+      "invalidates": [
+        "Stop-loss 4,493.40: a break of the pullback low 4,524.00 means the trend's buyers did not defend the EMA (invalidation 4,524.00 minus a 0.25 ATR buffer).",
+        "Time stop: exit if neither target is reached within 15 sessions.",
+        "Regime change: a NIFTY 50 close below its 50-day EMA (24,049) would remove the market tailwind."
+      ],
+      "max_risk": "Rs 193.40 per share (4.13% of entry, 1.6 ATR). Position 51 shares -> Rs 9,863 at the stop = 0.99% of Rs 10 lakh capital, plus ~0.70% round-trip costs. A gap through the stop can exceed this.",
+      "backtest_setup": {
+        "setup": "Pullback to 50-day EMA",
+        "trades": 221,
+        "win_rate": 42.534,
+        "profit_factor": 0.697,
+        "expectancy_r": -0.223,
+        "expectancy_r_t": -2.89,
+        "median_holding": 9.0
+      },
+      "chart_levels": {
+        "supports": [
+          4587.7,
+          4332.88
+        ],
+        "resistances": []
+      },
+      "indicators": {
+        "ema9": 4745.33,
+        "ema20": 4723.48,
+        "ema50": 4700.2,
+        "sma100": 4769.12,
+        "sma200": 4500.74,
+        "adx": 30.93,
+        "rsi": 48.39,
+        "macd": 36.63,
+        "macd_signal": 56.89,
+        "macd_hist": -20.26,
+        "stochrsi_k": 11.93,
+        "roc5": -4.68,
+        "roc10": -6.22,
+        "roc20": 8.26,
+        "atr": 122.14,
+        "bb_upper": 5161.02,
+        "bb_lower": 4278.98,
+        "bb_width": 18.69,
+        "hv20": 32.55,
+        "rvol": 0.95,
+        "obv": 40852793.0
+      },
+      "scrip_master_date": "2026-11-25",
+      "chart": "/home/pranay-hft/Desktop/Algorithmic_Trading_system/swing_research/charts/TITAN_LONG_2026-11-23.png"
+    },
+    {
+      "symbol": "HCLTECH",
+      "company": "HCL Technologies Ltd.",
+      "exchange": "NSE",
+      "industry": "Information Technology",
+      "indices": [
+        "NIFTY 50",
+        "NIFTY 100"
+      ],
+      "sector_index": "Nifty IT",
+      "side": "LONG",
+      "setup": "Pullback to 50-day EMA",
+      "signal_date": "2026-11-23",
+      "cmp": 1377.6,
+      "cmp_time": "2026-11-25T11:39:49+05:30",
+      "cmp_source": "Kotak Neo quotes API",
+      "last_close": 1364.3,
+      "entry": 1378.0,
+      "stop": 1300.3,
+      "t1": 1466.8,
+      "t2": 1537.5,
+      "t1_basis": "resistance 1,470.47 (3 touches, last 2026-11-06)",
+      "t2_basis": "volatility projection (4.5 x ATR, ~15-session reach)",
+      "invalidation": 1309.4,
+      "risk_per_share": 77.7,
+      "reward_t1": 88.8,
+      "reward_t2": 159.5,
+      "rr_t1": 1.14,
+      "rr_t2": 2.05,
+      "atr": 36.24,
+      "stop_atr": 2.14,
+      "score": 65,
+      "confidence": "Moderate",
+      "scorecard": {
+        "total": 65,
+        "components": [
+          {
+            "name": "Trend structure",
+            "points": 14,
+            "max": 20,
+            "pros": [
+              "+4 EMA20 above EMA50",
+              "+4 EMA50 above SMA200 (primary trend aligned)",
+              "+3 price above SMA200",
+              "+3 EMA50 sloping up (+4.1% / 20d)"
+            ],
+            "cons": [
+              "0/3 close on the wrong side of EMA20",
+              "0/3 ADX 21 / DI not confirming a directional trend"
+            ]
+          },
+          {
+            "name": "Momentum",
+            "points": 15,
+            "max": 15,
+            "pros": [
+              "+6 RSI 49 in the reset zone for this setup",
+              "+5 MACD histogram turning up (-14.48 -> -12.22)",
+              "+4 20-day ROC -3.7% (trend intact through the pullback)"
+            ],
+            "cons": []
+          },
+          {
+            "name": "Volume confirmation",
+            "points": 15,
+            "max": 15,
+            "pros": [
+              "+7 signal-day volume 1.4x the 20-day average",
+              "+4 OBV above its 20-day EMA (accumulation)",
+              "+4 up/down volume ratio 1.45 over 20 sessions"
+            ],
+            "cons": []
+          },
+          {
+            "name": "Relative strength",
+            "points": 4,
+            "max": 15,
+            "pros": [
+              "+4 +0.3% vs NIFTY 50 over 60 sessions"
+            ],
+            "cons": [
+              "0/5 -13.6% vs NIFTY 50 over 20 sessions",
+              "0/3 -2.4% vs its sector index (20d)",
+              "0/3 sector -11.4% vs NIFTY (20d) works against the trade"
+            ]
+          },
+          {
+            "name": "Price action",
+            "points": 3,
+            "max": 15,
+            "pros": [
+              "+3 entry 0.1 ATR from EMA20 (not extended)"
+            ],
+            "cons": [
+              "0/4 weak close location 0.55",
+              "0/4 no confirming candlestick pattern",
+              "0/4 loose structure: stop 2.1 ATR from entry"
+            ]
+          },
+          {
+            "name": "Risk/reward",
+            "points": 4,
+            "max": 10,
+            "pros": [
+              "6/10 reward:risk 1.14 to T1, 2.05 to T2"
+            ],
+            "cons": [
+              "-2 T2 is a volatility projection, not a chart level"
+            ]
+          },
+          {
+            "name": "Market regime alignment",
+            "points": 10,
+            "max": 10,
+            "pros": [
+              "10/10 long idea in a Strong Bullish market"
+            ],
+            "cons": []
+          }
+        ]
+      },
+      "sizing": {
+        "instrument": "EQ_DELIVERY",
+        "executable": true,
+        "qty": 128,
+        "lots": 0,
+        "lot_size": 1,
+        "contract": "HCLTECH-EQ",
+        "contract_expiry": null,
+        "notional": 176384.0,
+        "capital_pct": 17.6384,
+        "risk_amount": 9945.600000000006,
+        "risk_pct_capital": 0.9945600000000006,
+        "round_trip_cost_pct": 0.7055840969521044,
+        "note": "cash delivery (CNC)"
+      },
+      "holding": "5-15 sessions (1-3 weeks); time stop at 15; in the backtest this setup's trades lasted a median 9 sessions",
+      "regime": "Strong Bullish",
+      "events": {
+        "summary": "no scheduled event found in 2026-11-23..2026-12-17 (Kotak scrip master, Yahoo Finance calendar)",
+        "events": [],
+        "all": [
+          {
+            "event": "Record date (scrip master)",
+            "event_date": "2026-10-15",
+            "source": "Kotak Neo scrip master nse_cm 2026-11-25",
+            "retrieved_at": "2026-11-25"
+          },
+          {
+            "event": "Earnings (Yahoo date, may be an estimate)",
+            "event_date": "2027-01-11",
+            "source": "Yahoo Finance calendar HCLTECH.NS",
+            "retrieved_at": "2026-11-25T11:39:49+05:30"
+          },
+          {
+            "event": "Ex-dividend",
+            "event_date": "2026-10-16",
+            "source": "Yahoo Finance calendar HCLTECH.NS",
+            "retrieved_at": "2026-11-25T11:39:49+05:30"
+          }
+        ],
+        "sources_ok": [
+          "Kotak scrip master",
+          "Yahoo Finance calendar"
+        ],
+        "sources_failed": [],
+        "window": [
+          "2026-11-23",
+          "2026-12-17"
+        ]
+      },
+      "why_stock": [
+        "HCL Technologies Ltd. (Information Technology; member of NIFTY 50, NIFTY 100). Median 20-day traded value Rs 416 crore: liquid enough to enter and exit a swing position without moving the price.",
+        "Relative strength: -3.7% over 20 sessions vs NIFTY 50 +9.9% (-13.6% excess); +0.3% excess over 60 sessions; -2.4% vs its sector index (Nifty IT).",
+        "Sector backdrop: Nifty IT is -1.3% over 20 sessions (-11.4% vs NIFTY), rotation quadrant 'Weakening'."
+      ],
+      "why_now": [
+        "pulled back 4.4 ATR from the 1,469.00 swing high into the rising 50-day EMA (low 1,309.40)",
+        "RSI cooled to 49; today's bar reversed up (close above prior high)",
+        "Trend: close 1,364.30 vs EMA20 1,373.51 / EMA50 1,346.82 / SMA200 1,301.69; ADX 21; RSI 49.",
+        "Market regime Strong Bullish (+0.67): supports a long position."
+      ],
+      "catalyst": [
+        "Technical catalyst: the pullback to 50-day ema on 2026-11-23 (volume 1.4x average).",
+        "No company-specific news catalyst is claimed; scheduled events found are listed under event risk."
+      ],
+      "confirms": [
+        "A buy-stop trigger at 1,378.00 (above the signal bar's high); the order is valid for 3 sessions and is cancelled if 1,300.30 trades first.",
+        "Follow-through volume at or above the 20-day average (29.2 lakh shares) on the trigger day.",
+        "Holding above EMA50 1,346.82 on closing basis."
+      ],
+      "invalidates": [
+        "Stop-loss 1,300.30: a break of the pullback low 1,309.40 means the trend's buyers did not defend the EMA (invalidation 1,309.40 minus a 0.25 ATR buffer).",
+        "Time stop: exit if neither target is reached within 15 sessions.",
+        "Regime change: a NIFTY 50 close below its 50-day EMA (24,049) would remove the market tailwind."
+      ],
+      "max_risk": "Rs 77.70 per share (5.64% of entry, 2.1 ATR). Position 128 shares -> Rs 9,946 at the stop = 0.99% of Rs 10 lakh capital, plus ~0.71% round-trip costs. A gap through the stop can exceed this.",
+      "backtest_setup": {
+        "setup": "Pullback to 50-day EMA",
+        "trades": 221,
+        "win_rate": 42.534,
+        "profit_factor": 0.697,
+        "expectancy_r": -0.223,
+        "expectancy_r_t": -2.89,
+        "median_holding": 9.0
+      },
+      "chart_levels": {
+        "supports": [
+          1322.5,
+          1257.0
+        ],
+        "resistances": [
+          1580.1,
+          1683.93
+        ]
+      },
+      "indicators": {
+        "ema9": 1365.75,
+        "ema20": 1373.51,
+        "ema50": 1346.82,
+        "sma100": 1301.87,
+        "sma200": 1301.69,
+        "adx": 20.63,
+        "rsi": 48.91,
+        "macd": 1.47,
+        "macd_signal": 13.7,
+        "macd_hist": -12.22,
+        "stochrsi_k": 32.02,
+        "roc5": -1.47,
+        "roc10": -5.39,
+        "roc20": -3.72,
+        "atr": 36.24,
+        "bb_upper": 1464.38,
+        "bb_lower": 1328.67,
+        "bb_width": 9.72,
+        "hv20": 20.22,
+        "rvol": 1.38,
+        "obv": 79598442.0
+      },
+      "scrip_master_date": "2026-11-25",
+      "chart": "/home/pranay-hft/Desktop/Algorithmic_Trading_system/swing_research/charts/HCLTECH_LONG_2026-11-23.png"
+    }
+  ],
+  "shortfall": 1,
+  "scrip_master_date": "2026-11-25",
+  "strategy": {
+    "min_score": 60.0,
+    "min_rr_t1": 1.0,
+    "min_rr_t2": 2.0,
+    "stop_atr_buffer": 0.25,
+    "min_stop_atr": 1.0,
+    "max_stop_atr": 3.5,
+    "max_extension_atr": 3.0,
+    "breakout_lookback": 20,
+    "volume_confirm_rvol": 1.5,
+    "max_holding_days": 15,
+    "min_holding_days": 5,
+    "entry_valid_days": 3,
+    "max_pair_correlation": 0.75,
+    "max_ideas_per_sector": 1
+  },
+  "risk": {
+    "paper_capital": 1000000.0,
+    "risk_per_trade_pct": 1.0,
+    "max_position_pct": 25.0,
+    "max_futures_notional_pct": 100.0,
+    "max_open_positions": 5
+  }
+}

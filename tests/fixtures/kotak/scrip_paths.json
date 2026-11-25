@@ -1,0 +1,17 @@
+{
+ "status_code": 200,
+ "body": {
+  "data": {
+   "baseFolder": "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod",
+   "filesPaths": [
+    "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2026-11-25/transformed/cde_fo.csv",
+    "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2026-11-25/transformed/mcx_fo.csv",
+    "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2026-11-25/transformed/nse_fo.csv",
+    "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2026-11-25/transformed/bse_fo.csv",
+    "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2026-11-25/transformed/nse_com.csv",
+    "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2026-11-25/transformed-v1/bse_cm-v1.csv",
+    "https://lapi.kotaksecurities.com/wso2-scripmaster/v1/prod/2026-11-25/transformed-v1/nse_cm-v1.csv"
+   ]
+  }
+ }
+}

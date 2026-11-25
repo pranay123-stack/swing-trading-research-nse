@@ -1,0 +1,17 @@
+pandas>=2.2
+numpy>=2.0
+scipy>=1.13
+matplotlib>=3.9
+mplfinance>=0.12.10b0
+six
+plotly>=5.24
+streamlit>=1.40
+pydantic>=2.8
+pytest>=8.3
+reportlab>=4.2
+httpx>=0.27
+pyotp>=2.9
+python-dotenv>=1.0
+ta-lib>=0.6
+yfinance>=0.2.50
+pypdf>=5.0
